@@ -19,370 +19,183 @@
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Raleway', sans-serif;
-      font-weight: 400;
-      background: var(--navy);
-      color: var(--cream);
-      min-height: 100vh;
-    }
+    body { font-family: 'Raleway', sans-serif; font-weight: 400; background: var(--navy); color: var(--cream); min-height: 100vh; }
 
-    /* ── PASSWORD SCREEN ── */
+    /* ── LOCK ── */
     #lock-screen {
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      text-align: center;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 2rem; text-align: center;
     }
-
     #lock-screen h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.5rem, 8vw, 4rem);
-      font-weight: 300;
-      color: var(--cream);
-      margin-bottom: 0.5rem;
+      font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 300; color: var(--cream); margin-bottom: 0.5rem;
     }
+    #lock-screen h1 .amp { font-style: italic; color: var(--blush); }
+    #lock-screen p { font-size: 0.78rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--blush); opacity: 0.55; margin-bottom: 3rem; }
 
-    #lock-screen h1 .amp {
-      font-style: italic;
-      color: var(--blush);
+    .pwd-form { display: flex; flex-direction: column; align-items: center; gap: 1rem; width: 100%; max-width: 260px; }
+    .pwd-form input {
+      width: 100%; padding: 0.85rem 1.25rem;
+      background: rgba(255,255,255,0.07); border: 0.5px solid rgba(232,181,192,0.3);
+      color: var(--cream); font-family: 'Raleway', sans-serif; font-size: 1rem;
+      letter-spacing: 0.2em; text-align: center; outline: none; transition: border-color 0.2s;
     }
-
-    #lock-screen p {
-      font-size: 0.8rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--blush);
-      opacity: 0.6;
-      margin-bottom: 3rem;
+    .pwd-form input::placeholder { color: rgba(232,181,192,0.3); }
+    .pwd-form input:focus { border-color: rgba(232,181,192,0.7); }
+    .pwd-form button {
+      width: 100%; padding: 0.85rem; border: 1px solid var(--cream); background: transparent;
+      color: var(--cream); font-family: 'Raleway', sans-serif; font-size: 0.74rem;
+      letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: background 0.3s, color 0.3s;
     }
+    .pwd-form button:hover { background: var(--cream); color: var(--navy); }
+    .error-msg { font-size: 0.76rem; color: var(--rose); letter-spacing: 0.1em; min-height: 1rem; }
 
-    .password-form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-      width: 100%;
-      max-width: 280px;
-    }
-
-    .password-form input {
-      width: 100%;
-      padding: 0.85rem 1.25rem;
-      background: rgba(255,255,255,0.07);
-      border: 0.5px solid rgba(232,181,192,0.3);
-      color: var(--cream);
-      font-family: 'Raleway', sans-serif;
-      font-size: 1rem;
-      letter-spacing: 0.15em;
-      text-align: center;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .password-form input::placeholder { color: rgba(232,181,192,0.35); letter-spacing: 0.1em; }
-    .password-form input:focus { border-color: rgba(232,181,192,0.7); }
-
-    .password-form button {
-      width: 100%;
-      padding: 0.85rem;
-      border: 1px solid var(--cream);
-      background: transparent;
-      color: var(--cream);
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s;
-    }
-    .password-form button:hover { background: var(--cream); color: var(--navy); }
-
-    .error-msg {
-      font-size: 0.78rem;
-      color: var(--rose);
-      letter-spacing: 0.1em;
-      min-height: 1rem;
-    }
-
-    /* ── MAIN CONTENT ── */
+    /* ── MAIN ── */
     #main { display: none; }
 
-    .header {
-      background: var(--navy);
-      padding: 2.5rem 2rem 2rem;
-      text-align: center;
-      border-bottom: 0.5px solid rgba(232,181,192,0.15);
+    .top-bar {
+      background: var(--navy); padding: 2rem 2rem 1.75rem; text-align: center;
+      border-bottom: 0.5px solid rgba(232,181,192,0.12);
     }
+    .top-bar h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem,5vw,2.6rem); font-weight: 300; }
+    .top-bar h1 .amp { font-style: italic; color: var(--blush); }
+    .top-bar p { font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--blush); opacity: 0.45; margin-top: 0.3rem; }
 
-    .header h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.8rem, 5vw, 2.8rem);
-      font-weight: 300;
-      color: var(--cream);
-    }
-    .header h1 .amp { font-style: italic; color: var(--blush); }
-
-    .header-sub {
-      font-size: 0.7rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--blush);
-      opacity: 0.5;
-      margin-top: 0.4rem;
-    }
-
-    /* ── STATS ── */
+    /* stats */
     .stats {
-      background: var(--navy);
-      padding: 2rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 1rem;
-      max-width: 800px;
-      margin: 0 auto;
+      background: var(--navy); padding: 1.75rem 2rem 2rem;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem;
+      max-width: 640px; margin: 0 auto;
     }
+    .stat { background: rgba(255,255,255,0.05); border: 0.5px solid rgba(232,181,192,0.15); padding: 1.1rem 0.75rem; text-align: center; }
+    .stat-n { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--cream); line-height: 1; }
+    .stat-l { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--blush); opacity: 0.55; margin-top: 0.35rem; }
 
-    .stat-card {
-      background: rgba(255,255,255,0.05);
-      border: 0.5px solid rgba(232,181,192,0.15);
-      padding: 1.25rem 1rem;
-      text-align: center;
+    /* table section */
+    .tbl-section { background: var(--cream); padding: 2rem 1.5rem 3rem; }
+
+    .tbl-toolbar {
+      max-width: 900px; margin: 0 auto 1.25rem;
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;
     }
-
-    .stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.4rem;
-      font-weight: 300;
-      color: var(--cream);
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--blush);
-      opacity: 0.6;
-      margin-top: 0.4rem;
-    }
-
-    /* ── TABLE SECTION ── */
-    .table-section {
-      background: var(--cream);
-      padding: 2.5rem 2rem;
-    }
-
-    .table-toolbar {
-      max-width: 800px;
-      margin: 0 auto 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .table-title {
-      font-size: 0.72rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--mauve);
-      font-weight: 400;
-    }
-
+    .tbl-label { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--mauve); }
     .btn-refresh {
-      padding: 0.6rem 1.4rem;
-      border: 0.5px solid var(--rose);
-      background: transparent;
-      color: var(--mauve);
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.2s;
-      font-weight: 400;
+      padding: 0.55rem 1.25rem; border: 0.5px solid var(--rose); background: transparent;
+      color: var(--mauve); font-family: 'Raleway', sans-serif; font-size: 0.68rem;
+      letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer; transition: background 0.2s;
     }
-    .btn-refresh:hover { background: var(--blush-light, #F5E2E8); }
+    .btn-refresh:hover { background: #F5E2E8; }
 
-    .table-wrap {
-      max-width: 800px;
-      margin: 0 auto;
-      overflow-x: auto;
-    }
+    .tbl-wrap { max-width: 900px; margin: 0 auto; overflow-x: auto; }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.88rem;
-    }
-
-    thead tr {
-      border-bottom: 1px solid var(--navy);
-    }
-
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    thead tr { border-bottom: 1px solid var(--navy); }
     th {
-      font-size: 0.65rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--navy-mid);
-      font-weight: 500;
-      padding: 0.75rem 0.75rem;
-      text-align: left;
+      font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--navy-mid); font-weight: 500; padding: 0.7rem 0.6rem; text-align: center; white-space: nowrap;
     }
-
-    td {
-      padding: 0.85rem 0.75rem;
-      color: var(--navy);
-      border-bottom: 0.5px solid var(--cream-dark);
-      vertical-align: top;
-      line-height: 1.5;
-    }
-
+    th.left { text-align: left; }
+    td { padding: 0.8rem 0.6rem; color: var(--navy); border-bottom: 0.5px solid var(--cream-dark); text-align: center; vertical-align: middle; }
+    td.left { text-align: left; }
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: var(--cream-dark); }
 
-    .badge {
-      display: inline-block;
-      padding: 3px 10px;
-      font-size: 0.68rem;
-      letter-spacing: 0.1em;
-      font-weight: 400;
-    }
+    .badge { display: inline-block; padding: 3px 10px; font-size: 0.68rem; letter-spacing: 0.08em; white-space: nowrap; }
+    .badge-yes { background: rgba(26,43,90,0.1); color: var(--navy); }
+    .badge-no  { background: rgba(190,104,120,0.12); color: var(--mauve); }
 
-    .badge-yes {
-      background: rgba(26,43,90,0.1);
-      color: var(--navy);
-    }
+    .check { color: var(--mauve); font-size: 1rem; }
+    .dash  { color: #ccc; font-size: 0.8rem; }
 
-    .badge-no {
-      background: rgba(190,104,120,0.12);
-      color: var(--mauve);
-    }
+    .loading { text-align: center; padding: 3rem; color: var(--navy-mid); font-size: 0.85rem; }
+    .updated { text-align: center; font-size: 0.68rem; color: var(--mauve); opacity: 0.45; margin-top: 1.5rem; letter-spacing: 0.1em; }
 
-    .loading {
-      text-align: center;
-      padding: 3rem;
-      color: var(--navy-mid);
-      font-size: 0.85rem;
-      letter-spacing: 0.1em;
-    }
-
-    .updated-at {
-      text-align: center;
-      font-size: 0.7rem;
-      color: var(--mauve);
-      opacity: 0.5;
-      margin-top: 1.5rem;
-      letter-spacing: 0.1em;
-    }
-
-    @media (max-width: 480px) {
-      .stats { grid-template-columns: repeat(2, 1fr); }
-      th, td { padding: 0.65rem 0.5rem; font-size: 0.82rem; }
+    @media (max-width: 500px) {
+      .stats { grid-template-columns: repeat(3,1fr); gap: 0.5rem; }
+      th, td { padding: 0.6rem 0.4rem; font-size: 0.78rem; }
     }
   </style>
 </head>
 <body>
 
-<!-- ═══ LOCK SCREEN ═══ -->
+<!-- LOCK -->
 <div id="lock-screen">
   <h1>Lule <span class="amp">&amp;</span> Luchi</h1>
   <p>Lista de invitados</p>
-  <div class="password-form">
-    <input type="password" id="pwd-input" placeholder="contraseña" autocomplete="off"
-      onkeydown="if(event.key==='Enter') checkPwd()">
-    <button onclick="checkPwd()">Entrar</button>
-    <span class="error-msg" id="error-msg"></span>
+  <div class="pwd-form">
+    <input type="password" id="pwd" placeholder="contraseña" autocomplete="off"
+      onkeydown="if(event.key==='Enter') check()">
+    <button onclick="check()">Entrar</button>
+    <span class="error-msg" id="err"></span>
   </div>
 </div>
 
-<!-- ═══ MAIN ═══ -->
+<!-- MAIN -->
 <div id="main">
-
-  <div class="header">
+  <div class="top-bar">
     <h1>Lule <span class="amp">&amp;</span> Luchi</h1>
-    <p class="header-sub">lista de invitados</p>
+    <p>lista de invitados</p>
   </div>
 
-  <div class="stats" id="stats">
-    <div class="stat-card">
-      <div class="stat-num" id="stat-total">—</div>
-      <div class="stat-label">Respuestas</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num" id="stat-yes">—</div>
-      <div class="stat-label">Confirman</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num" id="stat-no">—</div>
-      <div class="stat-label">No pueden</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num" id="stat-restrict">—</div>
-      <div class="stat-label">Con restricción</div>
-    </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-n" id="s-total">—</div><div class="stat-l">Respuestas</div></div>
+    <div class="stat"><div class="stat-n" id="s-yes">—</div><div class="stat-l">Confirman</div></div>
+    <div class="stat"><div class="stat-n" id="s-no">—</div><div class="stat-l">No pueden</div></div>
   </div>
 
-  <div class="table-section">
-    <div class="table-toolbar">
-      <span class="table-title">Respuestas del formulario</span>
-      <button class="btn-refresh" onclick="loadData()">↻ Actualizar</button>
+  <div class="tbl-section">
+    <div class="tbl-toolbar">
+      <span class="tbl-label">Respuestas del formulario</span>
+      <button class="btn-refresh" onclick="load()">↻ Actualizar</button>
     </div>
-    <div class="table-wrap">
+    <div class="tbl-wrap">
       <div class="loading" id="loading">Cargando...</div>
-      <table id="guest-table" style="display:none;">
+      <table id="tbl" style="display:none;">
         <thead>
           <tr>
-            <th>#</th>
-            <th>Nombre</th>
+            <th class="left">#</th>
+            <th class="left">Nombre</th>
             <th>Asistencia</th>
-            <th>Alimentación</th>
-            <th>Canción</th>
+            <th>Vegetariano/a</th>
+            <th>Vegano/a</th>
+            <th>Celíaco/a</th>
+            <th>Diabético/a</th>
+            <th>Otro</th>
           </tr>
         </thead>
-        <tbody id="table-body"></tbody>
+        <tbody id="tbody"></tbody>
       </table>
     </div>
-    <p class="updated-at" id="updated-at"></p>
+    <p class="updated" id="updated"></p>
   </div>
-
 </div>
 
 <script>
-  const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ5yynYJis0S-ea7jcqMvpw744WY6qvu5R9rtKykrlhDORJHAfhivCS6HtBHNEWUkDpRLLkt22brA5o/pub?output=csv';
-  const PASSWORD = 'casorio';
+  const CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ5yynYJis0S-ea7jcqMvpw744WY6qvu5R9rtKykrlhDORJHAfhivCS6HtBHNEWUkDpRLLkt22brA5o/pub?output=csv';
+  const PWD = 'casorio';
 
-  function checkPwd() {
-    const val = document.getElementById('pwd-input').value.trim().toLowerCase();
-    if (val === PASSWORD) {
+  function check() {
+    if (document.getElementById('pwd').value.trim().toLowerCase() === PWD) {
       document.getElementById('lock-screen').style.display = 'none';
       document.getElementById('main').style.display = 'block';
-      loadData();
+      load();
     } else {
-      document.getElementById('error-msg').textContent = 'Contraseña incorrecta';
-      document.getElementById('pwd-input').value = '';
-      setTimeout(() => document.getElementById('error-msg').textContent = '', 2000);
+      document.getElementById('err').textContent = 'Contraseña incorrecta';
+      document.getElementById('pwd').value = '';
+      setTimeout(() => document.getElementById('err').textContent = '', 2000);
     }
   }
 
   function parseCSV(text) {
     const rows = [];
-    const lines = text.split('\n');
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i].trim();
-      if (!line) continue;
-      const cols = [];
-      let cur = '', inQ = false;
-      for (let c = 0; c < line.length; c++) {
-        const ch = line[c];
+    for (const line of text.split('\n')) {
+      if (!line.trim()) continue;
+      const cols = []; let cur = '', inQ = false;
+      for (const ch of line) {
         if (ch === '"') { inQ = !inQ; }
         else if (ch === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
-        else { cur += ch; }
+        else cur += ch;
       }
       cols.push(cur.trim());
       rows.push(cols);
@@ -390,11 +203,19 @@
     return rows;
   }
 
-  function loadData() {
-    document.getElementById('loading').style.display = 'block';
-    document.getElementById('guest-table').style.display = 'none';
+  function colIdx(headers, keyword) {
+    return headers.findIndex(h => h.toLowerCase().includes(keyword.toLowerCase()));
+  }
 
-    fetch(CSV_URL + '&cachebust=' + Date.now())
+  function has(str, keyword) {
+    return str.toLowerCase().includes(keyword.toLowerCase());
+  }
+
+  function load() {
+    document.getElementById('loading').style.display = 'block';
+    document.getElementById('tbl').style.display = 'none';
+
+    fetch(CSV + '&t=' + Date.now())
       .then(r => r.text())
       .then(text => {
         const rows = parseCSV(text);
@@ -404,58 +225,71 @@
         }
 
         const headers = rows[0];
-        const data = rows.slice(1);
+        const data    = rows.slice(1);
 
-        let countYes = 0, countNo = 0, countRestrict = 0;
-        const tbody = document.getElementById('table-body');
+        // map columns by header content
+        const iNombre  = colIdx(headers, 'llamás') !== -1 ? colIdx(headers, 'llamás') : 1;
+        const iViene   = colIdx(headers, 'venís')  !== -1 ? colIdx(headers, 'venís')  : 2;
+        const iRestr   = colIdx(headers, 'restricc') !== -1 ? colIdx(headers, 'restricc') : 3;
+        const iOtroTxt = colIdx(headers, 'pusiste') !== -1 ? colIdx(headers, 'pusiste') : 4;
+
+        let cYes = 0, cNo = 0;
+        const tbody = document.getElementById('tbody');
         tbody.innerHTML = '';
 
         data.forEach((row, i) => {
-          // cols: 0=timestamp, 1=nombre, 2=asistencia, 3=restriccion, 4=otro, 5=cancion
-          const nombre     = row[1] || '—';
-          const asistencia = row[2] || '—';
-          const restriccion = row[3] || '—';
-          const otro       = row[4] || '';
-          const cancion    = row[5] || '—';
+          const nombre  = row[iNombre]  || '—';
+          const asist   = row[iViene]   || '';
+          const restr   = row[iRestr]   || '';
+          const otroTxt = row[iOtroTxt] || '';
 
-          const viene = asistencia.toLowerCase().includes('sí') || asistencia.toLowerCase().includes('si');
-          if (viene) countYes++; else countNo++;
+          // attendance: detect "no" explicitly
+          const noViene = has(asist, 'no voy') || has(asist, 'no puedo') || has(asist, 'no poder') || (asist.trim().toLowerCase().startsWith('no'));
+          const viene   = !noViene && asist.trim() !== '';
 
-          const sinRestr = restriccion.toLowerCase().includes('sin restricc') || restriccion.toLowerCase().includes('como de todo');
-          if (!sinRestr && restriccion !== '—') countRestrict++;
+          if (viene) cYes++; else if (asist.trim()) cNo++;
 
-          const restDisplay = otro ? restriccion + ' — ' + otro : restriccion;
           const badge = viene
-            ? '<span class="badge badge-yes">Confirma</span>'
+            ? '<span class="badge badge-yes">Confirma ✓</span>'
             : '<span class="badge badge-no">No puede</span>';
+
+          const veg  = has(restr, 'vegetar') ? '<span class="check">✓</span>' : '<span class="dash">—</span>';
+          const vgn  = has(restr, 'vegano')  ? '<span class="check">✓</span>' : '<span class="dash">—</span>';
+          const cel  = has(restr, 'celí') || has(restr, 'celia') ? '<span class="check">✓</span>' : '<span class="dash">—</span>';
+          const dia  = has(restr, 'diabé') || has(restr, 'diabe') ? '<span class="check">✓</span>' : '<span class="dash">—</span>';
+          const otro = has(restr, 'otro') || otroTxt
+            ? `<span class="check" title="${otroTxt || ''}">✓${otroTxt ? ' (' + otroTxt + ')' : ''}</span>`
+            : '<span class="dash">—</span>';
 
           tbody.innerHTML += `
             <tr>
-              <td style="color:var(--mauve);opacity:0.5;font-size:0.78rem;">${i + 1}</td>
-              <td style="font-weight:500;">${nombre}</td>
+              <td class="left" style="color:var(--mauve);opacity:0.45;font-size:0.75rem;">${i+1}</td>
+              <td class="left" style="font-weight:500;">${nombre}</td>
               <td>${badge}</td>
-              <td>${restDisplay}</td>
-              <td style="font-style:italic;color:var(--navy-mid);">${cancion}</td>
+              <td>${veg}</td>
+              <td>${vgn}</td>
+              <td>${cel}</td>
+              <td>${dia}</td>
+              <td>${otro}</td>
             </tr>`;
         });
 
-        document.getElementById('stat-total').textContent = data.length;
-        document.getElementById('stat-yes').textContent = countYes;
-        document.getElementById('stat-no').textContent = countNo;
-        document.getElementById('stat-restrict').textContent = countRestrict;
+        document.getElementById('s-total').textContent = data.length;
+        document.getElementById('s-yes').textContent   = cYes;
+        document.getElementById('s-no').textContent    = cNo;
 
         document.getElementById('loading').style.display = 'none';
-        document.getElementById('guest-table').style.display = 'table';
+        document.getElementById('tbl').style.display     = 'table';
 
         const now = new Date();
-        document.getElementById('updated-at').textContent =
-          'Actualizado ' + now.toLocaleDateString('es-AR') + ' ' + now.toLocaleTimeString('es-AR', {hour:'2-digit', minute:'2-digit'});
+        document.getElementById('updated').textContent =
+          'Actualizado ' + now.toLocaleDateString('es-AR') + ' · ' +
+          now.toLocaleTimeString('es-AR', {hour:'2-digit', minute:'2-digit'});
       })
       .catch(() => {
         document.getElementById('loading').textContent = 'Error al cargar. Intentá de nuevo.';
       });
   }
 </script>
-
 </body>
 </html>
