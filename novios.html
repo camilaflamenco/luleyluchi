@@ -19,58 +19,58 @@
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Raleway', sans-serif; font-weight: 400; background: var(--navy); color: var(--cream); min-height: 100vh; }
+    body { font-family: 'Raleway', sans-serif; font-weight: 400; background: var(--cream); color: var(--navy); min-height: 100vh; }
 
     /* ── LOCK ── */
     #lock-screen {
       min-height: 100vh;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      padding: 2rem; text-align: center;
+      padding: 2rem; text-align: center; background: var(--cream);
     }
     #lock-screen h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 300; color: var(--cream); margin-bottom: 0.5rem;
+      font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 300; color: var(--navy); margin-bottom: 0.5rem;
     }
-    #lock-screen h1 .amp { font-style: italic; color: var(--blush); }
-    #lock-screen p { font-size: 0.78rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--blush); opacity: 0.55; margin-bottom: 3rem; }
+    #lock-screen h1 .amp { font-style: italic; color: var(--mauve); }
+    #lock-screen p { font-size: 0.78rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--mauve); opacity: 0.55; margin-bottom: 3rem; }
 
     .pwd-form { display: flex; flex-direction: column; align-items: center; gap: 1rem; width: 100%; max-width: 260px; }
     .pwd-form input {
       width: 100%; padding: 0.85rem 1.25rem;
-      background: rgba(255,255,255,0.07); border: 0.5px solid rgba(232,181,192,0.3);
-      color: var(--cream); font-family: 'Raleway', sans-serif; font-size: 1rem;
+      background: var(--cream-dark); border: 0.5px solid rgba(139,80,98,0.3);
+      color: var(--navy); font-family: 'Raleway', sans-serif; font-size: 1rem;
       letter-spacing: 0.2em; text-align: center; outline: none; transition: border-color 0.2s;
     }
-    .pwd-form input::placeholder { color: rgba(232,181,192,0.3); }
-    .pwd-form input:focus { border-color: rgba(232,181,192,0.7); }
+    .pwd-form input::placeholder { color: rgba(139,80,98,0.35); }
+    .pwd-form input:focus { border-color: var(--rose); }
     .pwd-form button {
-      width: 100%; padding: 0.85rem; border: 1px solid var(--cream); background: transparent;
-      color: var(--cream); font-family: 'Raleway', sans-serif; font-size: 0.74rem;
+      width: 100%; padding: 0.85rem; border: 1px solid var(--navy); background: transparent;
+      color: var(--navy); font-family: 'Raleway', sans-serif; font-size: 0.74rem;
       letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: background 0.3s, color 0.3s;
     }
-    .pwd-form button:hover { background: var(--cream); color: var(--navy); }
+    .pwd-form button:hover { background: var(--navy); color: var(--cream); }
     .error-msg { font-size: 0.76rem; color: var(--rose); letter-spacing: 0.1em; min-height: 1rem; }
 
     /* ── MAIN ── */
     #main { display: none; }
 
     .top-bar {
-      background: var(--navy); padding: 2rem 2rem 1.75rem; text-align: center;
-      border-bottom: 0.5px solid rgba(232,181,192,0.12);
+      background: var(--cream); padding: 2rem 2rem 1.75rem; text-align: center;
+      border-bottom: 0.5px solid rgba(139,80,98,0.15);
     }
-    .top-bar h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem,5vw,2.6rem); font-weight: 300; }
-    .top-bar h1 .amp { font-style: italic; color: var(--blush); }
-    .top-bar p { font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--blush); opacity: 0.45; margin-top: 0.3rem; }
+    .top-bar h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem,5vw,2.6rem); font-weight: 300; color: var(--navy); }
+    .top-bar h1 .amp { font-style: italic; color: var(--mauve); }
+    .top-bar p { font-size: 0.85rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--mauve); font-weight: 500; margin-top: 0.5rem; }
 
     /* stats */
     .stats {
-      background: var(--navy); padding: 1.75rem 2rem 2rem;
+      background: var(--cream); padding: 1.75rem 2rem 2rem;
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem;
       max-width: 640px; margin: 0 auto;
     }
-    .stat { background: rgba(255,255,255,0.05); border: 0.5px solid rgba(232,181,192,0.15); padding: 1.1rem 0.75rem; text-align: center; }
-    .stat-n { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--cream); line-height: 1; }
-    .stat-l { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--blush); opacity: 0.55; margin-top: 0.35rem; }
+    .stat { background: var(--cream-dark); border: 0.5px solid rgba(139,80,98,0.15); padding: 1.1rem 0.75rem; text-align: center; }
+    .stat-n { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--navy); line-height: 1; }
+    .stat-l { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mauve); opacity: 0.7; margin-top: 0.35rem; }
 
     /* table section */
     .tbl-section { background: var(--cream); padding: 2rem 1.5rem 3rem; }
