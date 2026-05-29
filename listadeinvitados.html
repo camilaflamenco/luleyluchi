@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lule & Luchi · Lista de invitados</title>
+  <meta name="description" content="Lista de invitados — Lule & Luchi, 26 de septiembre 2026.">
+  <meta property="og:title" content="Lista de invitados · Lule & Luchi">
+  <meta property="og:description" content="26 de septiembre 2026 · Espacio Lucena, Lomas de Zamora.">
+  <meta property="og:image" content="https://luleyluchi.com/lista_de_invitados.jpg">
+  <meta property="og:url" content="https://luleyluchi.com/listadeinvitados">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://luleyluchi.com/lista_de_invitados.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream:      #F7EEE4;
+      --cream-dark: #EDE0D2;
+      --navy:       #1A2B5A;
+      --navy-mid:   #2C4280;
+      --mauve:      #8B5062;
+      --rose:       #BE6878;
+      --blush:      #E8B5C0;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Raleway', sans-serif; font-weight: 400; background: var(--cream); color: var(--navy); min-height: 100vh; }
+
+    /* ── LOCK ── */
+    #lock-screen {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 2rem; text-align: center; background: var(--cream);
+    }
+    #lock-screen h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 300; color: var(--navy); margin-bottom: 0.4rem;
+    }
+    #lock-screen h1 .amp { font-style: italic; color: var(--mauve); }
+    #lock-screen p { font-size: clamp(1.1rem, 4vw, 1.6rem); letter-spacing: 0.3em; text-transform: uppercase; color: var(--mauve); font-weight: 500; margin-bottom: 3rem; opacity: 1; }
+
+    .pwd-form { display: flex; flex-direction: column; align-items: center; gap: 1rem; width: 100%; max-width: 260px; }
+    .pwd-form input {
+      width: 100%; padding: 0.85rem 1.25rem;
+      background: var(--cream-dark); border: 0.5px solid rgba(139,80,98,0.3);
+      color: var(--navy); font-family: 'Raleway', sans-serif; font-size: 1rem;
+      letter-spacing: 0.2em; text-align: center; outline: none; transition: border-color 0.2s;
+    }
+    .pwd-form input::placeholder { color: rgba(139,80,98,0.35); }
+    .pwd-form input:focus { border-color: var(--rose); }
+    .pwd-form button {
+      width: 100%; padding: 0.85rem; border: 1px solid var(--navy); background: transparent;
+      color: var(--navy); font-family: 'Raleway', sans-serif; font-size: 0.74rem;
+      letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: background 0.3s, color 0.3s;
+    }
+    .pwd-form button:hover { background: var(--navy); color: var(--cream); }
+    .error-msg { font-size: 0.76rem; color: var(--rose); letter-spacing: 0.1em; min-height: 1rem; }
+
+    /* ── MAIN ── */
+    #main { display: none; }
+
+    .top-bar {
+      background: var(--cream); padding: 2rem 2rem 1.75rem; text-align: center;
+      border-bottom: 0.5px solid rgba(139,80,98,0.15);
+    }
+    .top-bar h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem,5vw,2.6rem); font-weight: 300; color: var(--navy); }
+    .top-bar h1 .amp { font-style: italic; color: var(--mauve); }
+    .top-bar p { font-size: 0.85rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--mauve); font-weight: 500; margin-top: 0.5rem; }
+
+    /* stats */
+    .stats {
+      background: var(--cream); padding: 1.75rem 2rem 2rem;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem;
+      max-width: 640px; margin: 0 auto;
+    }
+    .stat { background: var(--cream-dark); border: 0.5px solid rgba(139,80,98,0.15); padding: 1.1rem 0.75rem; text-align: center; }
+    .stat-n { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--navy); line-height: 1; }
+    .stat-l { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mauve); opacity: 0.7; margin-top: 0.35rem; }
+
+    /* table section */
+    .tbl-section { background: var(--cream); padding: 2rem 1.5rem 3rem; }
+
+    .tbl-toolbar {
+      max-width: 900px; margin: 0 auto 1.25rem;
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;
+    }
+    .tbl-label { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--mauve); }
+    .btn-refresh {
+      padding: 0.55rem 1.25rem; border: 0.5px solid var(--rose); background: transparent;
+      color: var(--mauve); font-family: 'Raleway', sans-serif; font-size: 0.68rem;
+      letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer; transition: background 0.2s;
+    }
+    .btn-refresh:hover { background: #F5E2E8; }
+
+    .tbl-wrap { max-width: 900px; margin: 0 auto; overflow-x: auto; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    thead tr { border-bottom: 1px solid var(--navy); }
+    th {
+      font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--navy-mid); font-weight: 500; padding: 0.7rem 0.6rem; text-align: center; white-space: nowrap;
+    }
+    th.left { text-align: left; }
+    td { padding: 0.8rem 0.6rem; color: var(--navy); border-bottom: 0.5px solid var(--cream-dark); text-align: center; vertical-align: middle; }
+    td.left { text-align: left; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--cream-dark); }
+
+    .badge { display: inline-block; padding: 3px 10px; font-size: 0.68rem; letter-spacing: 0.08em; white-space: nowrap; }
+    .badge-yes { background: rgba(26,43,90,0.1); color: var(--navy); }
+    .badge-no  { background: rgba(190,104,120,0.12); color: var(--mauve); }
+
+    .check { color: var(--mauve); font-size: 1rem; }
+    .dash  { color: #ccc; font-size: 0.8rem; }
+
+    .loading { text-align: center; padding: 3rem; color: var(--navy-mid); font-size: 0.85rem; }
+    .updated { text-align: center; font-size: 0.68rem; color: var(--mauve); opacity: 0.45; margin-top: 1.5rem; letter-spacing: 0.1em; }
+
+    @media (max-width: 500px) {
+      .stats { grid-template-columns: repeat(3,1fr); gap: 0.5rem; }
+      th, td { padding: 0.6rem 0.4rem; font-size: 0.78rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOCK -->
+<div id="lock-screen">
+  <h1>Lule <span class="amp">&amp;</span> Luchi</h1>
+  <p>Lista de invitados</p>
+  <div class="pwd-form">
+    <input type="password" id="pwd" placeholder="contraseña" autocomplete="off"
+      onkeydown="if(event.key==='Enter') check()">
+    <button onclick="check()">Entrar</button>
+    <span class="error-msg" id="err"></span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <div class="top-bar">
+    <h1>Lule <span class="amp">&amp;</span> Luchi</h1>
+    <p>lista de invitados</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-n" id="s-total">—</div><div class="stat-l">Respuestas</div></div>
+    <div class="stat"><div class="stat-n" id="s-yes">—</div><div class="stat-l">Confirman</div></div>
+    <div class="stat"><div class="stat-n" id="s-no">—</div><div class="stat-l">No pueden</div></div>
+  </div>
+
+  <div class="tbl-section">
+    <div class="tbl-toolbar">
+      <span class="tbl-label">Respuestas del formulario</span>
+      <button class="btn-refresh" onclick="load()">↻ Actualizar</button>
+    </div>
+    <div class="tbl-wrap">
+      <div class="loading" id="loading">Cargando...</div>
+      <table id="tbl" style="display:none;">
+        <thead>
+          <tr>
+            <th class="left">#</th>
+            <th class="left">Nombre</th>
+            <th>Asistencia</th>
+            <th>Vegetariano/a<br><span id="cnt-veg" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
+            <th>Vegano/a<br><span id="cnt-vgn" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
+            <th>Celíaco/a<br><span id="cnt-cel" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
+            <th>Diabético/a<br><span id="cnt-dia" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
+            <th>Otro<br><span id="cnt-otro" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <p class="updated" id="updated"></p>
+  </div>
+</div>
+
+<script>
+  const CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ5yynYJis0S-ea7jcqMvpw744WY6qvu5R9rtKykrlhDORJHAfhivCS6HtBHNEWUkDpRLLkt22brA5o/pub?output=csv';
+  const PWD = 'casorio';
+
+  function check() {
+    if (document.getElementById('pwd').value.trim().toLowerCase() === PWD) {
+      document.getElementById('lock-screen').style.display = 'none';
+      document.getElementById('main').style.display = 'block';
+      load();
+    } else {
+      document.getElementById('err').textContent = 'Contraseña incorrecta';
+      document.getElementById('pwd').value = '';
+      setTimeout(() => document.getElementById('err').textContent = '', 2000);
+    }
+  }
+
+  function parseCSV(text) {
+    const rows = [];
+    for (const line of text.split('\n')) {
+      if (!line.trim()) continue;
+      const cols = []; let cur = '', inQ = false;
+      for (const ch of line) {
+        if (ch === '"') { inQ = !inQ; }
+        else if (ch === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
+        else cur += ch;
+      }
+      cols.push(cur.trim());
+      rows.push(cols);
+    }
+    return rows;
+  }
+
+  function colIdx(headers, keyword) {
+    return headers.findIndex(h => h.toLowerCase().includes(keyword.toLowerCase()));
+  }
+
+  function has(str, keyword) {
+    return str.toLowerCase().includes(keyword.toLowerCase());
+  }
+
+  function load() {
+    document.getElementById('loading').style.display = 'block';
+    document.getElementById('tbl').style.display = 'none';
+
+    fetch(CSV + '&t=' + Date.now())
+      .then(r => r.text())
+      .then(text => {
+        const rows = parseCSV(text);
+        if (rows.length < 2) {
+          document.getElementById('loading').textContent = 'Todavía no hay respuestas.';
+          return;
+        }
+
+        const headers = rows[0];
+        const data    = rows.slice(1);
+
+        // map columns by header content
+        const iNombre  = colIdx(headers, 'llamás') !== -1 ? colIdx(headers, 'llamás') : 1;
+        const iViene   = colIdx(headers, 'venís')  !== -1 ? colIdx(headers, 'venís')  : 2;
+        const iRestr   = colIdx(headers, 'restricc') !== -1 ? colIdx(headers, 'restricc') : 3;
+        const iOtroTxt = colIdx(headers, 'pusiste') !== -1 ? colIdx(headers, 'pusiste') : 4;
+
+        let cYes = 0, cNo = 0, cVeg = 0, cVgn = 0, cCel = 0, cDia = 0, cOtro = 0;
+        const rowsYes = [], rowsNo = [];
+        const tbody = document.getElementById('tbody');
+        tbody.innerHTML = '';
+
+        data.forEach((row, i) => {
+          const nombre  = row[iNombre]  || '—';
+          const asist   = row[iViene]   || '';
+          const restr   = row[iRestr]   || '';
+          const otroTxt = row[iOtroTxt] || '';
+
+          const noViene = has(asist, 'no voy') || has(asist, 'no puedo') || has(asist, 'no poder') || (asist.trim().toLowerCase().startsWith('no'));
+          const viene   = !noViene && asist.trim() !== '';
+
+          if (viene) cYes++; else if (asist.trim()) cNo++;
+
+          const badge = viene
+            ? '<span class="badge badge-yes">Confirma ✓</span>'
+            : '<span class="badge badge-no">No puede</span>';
+
+          const veg  = has(restr, 'vegetar') ? (cVeg++, '<span class="check">✓</span>') : '<span class="dash">—</span>';
+          const vgn  = has(restr, 'vegano')  ? (cVgn++, '<span class="check">✓</span>') : '<span class="dash">—</span>';
+          const cel  = has(restr, 'celí') || has(restr, 'celia') ? (cCel++, '<span class="check">✓</span>') : '<span class="dash">—</span>';
+          const dia  = has(restr, 'diabé') || has(restr, 'diabe') ? (cDia++, '<span class="check">✓</span>') : '<span class="dash">—</span>';
+          const otro = has(restr, 'otro') || otroTxt
+            ? (cOtro++, `<span class="check" title="${otroTxt || ''}">✓${otroTxt ? ' (' + otroTxt + ')' : ''}</span>`)
+            : '<span class="dash">—</span>';
+
+          const rowHtml = `
+            <tr data-viene="${viene}">
+              <td class="left" style="color:var(--mauve);opacity:0.45;font-size:0.75rem;">${i+1}</td>
+              <td class="left" style="font-weight:500;">${nombre}</td>
+              <td>${badge}</td>
+              <td>${veg}</td><td>${vgn}</td><td>${cel}</td><td>${dia}</td><td>${otro}</td>
+            </tr>`;
+
+          if (viene) rowsYes.push(rowHtml); else rowsNo.push(rowHtml);
+        });
+
+        // group separator row
+        const separator = (label, count) => `
+          <tr>
+            <td colspan="8" style="
+              padding: 1rem 0.75rem 0.5rem;
+              font-size: 0.65rem;
+              letter-spacing: 0.3em;
+              text-transform: uppercase;
+              color: var(--mauve);
+              font-weight: 500;
+              border-bottom: 1px solid var(--navy);
+              background: var(--cream);
+            ">${label} &nbsp;<span style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:300;letter-spacing:0;">${count}</span></td>
+          </tr>`;
+
+        tbody.innerHTML =
+          separator('Confirman', cYes) +
+          rowsYes.join('') +
+          separator('No pueden', cNo) +
+          rowsNo.join('');
+
+        document.getElementById('s-total').textContent = data.length;
+        document.getElementById('s-yes').textContent   = cYes;
+        document.getElementById('s-no').textContent    = cNo;
+        document.getElementById('cnt-veg').textContent  = cVeg;
+        document.getElementById('cnt-vgn').textContent  = cVgn;
+        document.getElementById('cnt-cel').textContent  = cCel;
+        document.getElementById('cnt-dia').textContent  = cDia;
+        document.getElementById('cnt-otro').textContent = cOtro;
+
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('tbl').style.display     = 'table';
+
+        const now = new Date();
+        document.getElementById('updated').textContent =
+          'Actualizado ' + now.toLocaleDateString('es-AR') + ' · ' +
+          now.toLocaleTimeString('es-AR', {hour:'2-digit', minute:'2-digit'});
+      })
+      .catch(() => {
+        document.getElementById('loading').textContent = 'Error al cargar. Intentá de nuevo.';
+      });
+  }
+</script>
+</body>
+</html>
