@@ -3,293 +3,480 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lule & Luchi · Lista de invitados</title>
+  <title>Lule & Luchi · 26.09.2026</title>
+  <meta name="description" content="Nos casamos. 26 de septiembre de 2026 · Espacio Lucena, Lomas de Zamora.">
+  <meta property="og:title" content="Lule & Luchi · 26.09.2026">
+  <meta property="og:description" content="Nos casamos. 26 de septiembre de 2026 · Espacio Lucena, Lomas de Zamora.">
+  <meta property="og:image" content="https://luleyluchi.com/preview.jpg">
+  <meta property="og:url" content="https://luleyluchi.com">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://luleyluchi.com/preview.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --cream:      #F7EEE4;
-      --cream-dark: #EDE0D2;
-      --navy:       #1A2B5A;
-      --navy-mid:   #2C4280;
-      --mauve:      #8B5062;
-      --rose:       #BE6878;
-      --blush:      #E8B5C0;
+      --cream:       #F7EEE4;
+      --cream-dark:  #EDE0D2;
+      --navy:        #1A2B5A;
+      --navy-mid:    #2C4280;
+      --mauve:       #8B5062;
+      --rose:        #BE6878;
+      --blush:       #E8B5C0;
+      --blush-light: #F5E2E8;
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Raleway', sans-serif; font-weight: 400; background: var(--navy); color: var(--cream); min-height: 100vh; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Raleway', sans-serif; font-weight: 400; overflow-x: hidden; }
 
-    /* ── LOCK ── */
-    #lock-screen {
-      min-height: 100vh;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      padding: 2rem; text-align: center;
+    /* ── SHARED SECTION LAYOUT ── */
+    .section-wrap {
+      width: 100%;
+      padding: 6rem 2rem;
     }
-    #lock-screen h1 {
+    .section-inner {
+      max-width: 580px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    /* ── DARK sections (navy bg) ── */
+    .dark {
+      background: var(--navy);
+    }
+    .dark .eyebrow  { color: var(--blush); }
+    .dark h2        { color: var(--cream); }
+    .dark p         { color: var(--blush); opacity: 0.85; }
+    .dark .notice-box { border-color: rgba(232,181,192,0.35); color: var(--blush); }
+    .dark .diamond::before,
+    .dark .diamond::after { background: rgba(232,181,192,0.4); }
+
+    /* ── LIGHT sections (cream bg) ── */
+    .light {
+      background: var(--cream);
+    }
+    .light .eyebrow  { color: var(--mauve); }
+    .light h2        { color: var(--navy); }
+    .light p         { color: var(--navy-mid); }
+    .light .notice-box { border-color: var(--rose); color: var(--mauve); }
+    .light .diamond::before,
+    .light .diamond::after { background: rgba(190,104,120,0.4); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 5rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+      background: var(--navy);
+    }
+
+    .hero-lines {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .pre-title {
+      font-size: 0.78rem;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: var(--blush);
+      margin-bottom: 2rem;
+      position: relative;
+      font-weight: 400;
+    }
+
+    .names {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 300; color: var(--cream); margin-bottom: 0.5rem;
+      font-size: clamp(3.8rem, 13vw, 7.5rem);
+      font-weight: 300;
+      line-height: 1;
+      color: var(--cream);
+      position: relative;
+      animation: fadeUp 1s ease both;
     }
-    #lock-screen h1 .amp { font-style: italic; color: var(--blush); }
-    #lock-screen p { font-size: 0.78rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--blush); opacity: 0.55; margin-bottom: 3rem; }
+    .names .amp { font-style: italic; color: var(--blush); }
 
-    .pwd-form { display: flex; flex-direction: column; align-items: center; gap: 1rem; width: 100%; max-width: 260px; }
-    .pwd-form input {
-      width: 100%; padding: 0.85rem 1.25rem;
-      background: rgba(255,255,255,0.07); border: 0.5px solid rgba(232,181,192,0.3);
-      color: var(--cream); font-family: 'Raleway', sans-serif; font-size: 1rem;
-      letter-spacing: 0.2em; text-align: center; outline: none; transition: border-color 0.2s;
+    .date-hero {
+      font-size: 0.84rem;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: var(--blush);
+      opacity: 0.75;
+      margin-top: 1.75rem;
+      position: relative;
+      font-weight: 400;
     }
-    .pwd-form input::placeholder { color: rgba(232,181,192,0.3); }
-    .pwd-form input:focus { border-color: rgba(232,181,192,0.7); }
-    .pwd-form button {
-      width: 100%; padding: 0.85rem; border: 1px solid var(--cream); background: transparent;
-      color: var(--cream); font-family: 'Raleway', sans-serif; font-size: 0.74rem;
-      letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: background 0.3s, color 0.3s;
+
+    /* ── DIAMOND ── */
+    .diamond {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin: 1.75rem auto;
+      width: 200px;
     }
-    .pwd-form button:hover { background: var(--cream); color: var(--navy); }
-    .error-msg { font-size: 0.76rem; color: var(--rose); letter-spacing: 0.1em; min-height: 1rem; }
-
-    /* ── MAIN ── */
-    #main { display: none; }
-
-    .top-bar {
-      background: var(--navy); padding: 2rem 2rem 1.75rem; text-align: center;
-      border-bottom: 0.5px solid rgba(232,181,192,0.12);
+    .diamond::before, .diamond::after {
+      content: '';
+      flex: 1;
+      height: 0.5px;
     }
-    .top-bar h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem,5vw,2.6rem); font-weight: 300; }
-    .top-bar h1 .amp { font-style: italic; color: var(--blush); }
-    .top-bar p { font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--blush); opacity: 0.45; margin-top: 0.3rem; }
 
-    /* stats */
-    .stats {
-      background: var(--navy); padding: 1.75rem 2rem 2rem;
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem;
-      max-width: 640px; margin: 0 auto;
+    /* ── EYEBROW ── */
+    .eyebrow {
+      font-size: 0.74rem;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      margin-bottom: 1.75rem;
+      display: block;
+      font-weight: 400;
     }
-    .stat { background: rgba(255,255,255,0.05); border: 0.5px solid rgba(232,181,192,0.15); padding: 1.1rem 0.75rem; text-align: center; }
-    .stat-n { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--cream); line-height: 1; }
-    .stat-l { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--blush); opacity: 0.55; margin-top: 0.35rem; }
 
-    /* table section */
-    .tbl-section { background: var(--cream); padding: 2rem 1.5rem 3rem; }
-
-    .tbl-toolbar {
-      max-width: 900px; margin: 0 auto 1.25rem;
-      display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;
+    /* ── HEADINGS & TEXT ── */
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: clamp(2rem, 6vw, 3rem);
+      margin-bottom: 0.85rem;
+      line-height: 1.1;
     }
-    .tbl-label { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--mauve); }
-    .btn-refresh {
-      padding: 0.55rem 1.25rem; border: 0.5px solid var(--rose); background: transparent;
-      color: var(--mauve); font-family: 'Raleway', sans-serif; font-size: 0.68rem;
-      letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer; transition: background 0.2s;
+    p {
+      font-size: 1rem;
+      line-height: 2;
+      font-weight: 400;
     }
-    .btn-refresh:hover { background: #F5E2E8; }
 
-    .tbl-wrap { max-width: 900px; margin: 0 auto; overflow-x: auto; }
-
-    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-    thead tr { border-bottom: 1px solid var(--navy); }
-    th {
-      font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--navy-mid); font-weight: 500; padding: 0.7rem 0.6rem; text-align: center; white-space: nowrap;
+    .notice-box {
+      margin-top: 2rem;
+      padding: 1.25rem 1.75rem;
+      border: 0.5px solid;
+      font-size: 0.92rem;
+      font-style: italic;
+      line-height: 1.85;
     }
-    th.left { text-align: left; }
-    td { padding: 0.8rem 0.6rem; color: var(--navy); border-bottom: 0.5px solid var(--cream-dark); text-align: center; vertical-align: middle; }
-    td.left { text-align: left; }
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background: var(--cream-dark); }
 
-    .badge { display: inline-block; padding: 3px 10px; font-size: 0.68rem; letter-spacing: 0.08em; white-space: nowrap; }
-    .badge-yes { background: rgba(26,43,90,0.1); color: var(--navy); }
-    .badge-no  { background: rgba(190,104,120,0.12); color: var(--mauve); }
+    /* ── COUNTDOWN ── */
+    .cd-wrap {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      margin-top: 2.5rem;
+    }
+    .cd-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1.5rem 0.5rem;
+      background: rgba(255,255,255,0.06);
+      border: 0.5px solid rgba(232,181,192,0.2);
+    }
+    .cd-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 7vw, 3.8rem);
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1;
+    }
+    .cd-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--blush);
+      opacity: 0.7;
+      font-weight: 400;
+    }
 
-    .check { color: var(--mauve); font-size: 1rem; }
-    .dash  { color: #ccc; font-size: 0.8rem; }
+    /* ── BUTTONS ── */
+    .btn-cream {
+      display: inline-block;
+      margin-top: 2.25rem;
+      padding: 0.9rem 2.75rem;
+      border: 1px solid var(--cream);
+      color: var(--cream);
+      text-decoration: none;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      transition: background 0.3s, color 0.3s;
+      background: transparent;
+      font-weight: 400;
+    }
+    .btn-cream:hover { background: var(--cream); color: var(--navy); }
 
-    .loading { text-align: center; padding: 3rem; color: var(--navy-mid); font-size: 0.85rem; }
-    .updated { text-align: center; font-size: 0.68rem; color: var(--mauve); opacity: 0.45; margin-top: 1.5rem; letter-spacing: 0.1em; }
+    .btn-navy {
+      display: inline-block;
+      margin-top: 2.25rem;
+      padding: 0.9rem 2.75rem;
+      border: 1px solid var(--navy);
+      color: var(--navy);
+      text-decoration: none;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      transition: background 0.3s, color 0.3s;
+      background: transparent;
+      font-weight: 400;
+    }
+    .btn-navy:hover { background: var(--navy); color: var(--cream); }
 
-    @media (max-width: 500px) {
-      .stats { grid-template-columns: repeat(3,1fr); gap: 0.5rem; }
-      th, td { padding: 0.6rem 0.4rem; font-size: 0.78rem; }
+    .btn-ghost-dark {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.75rem 2rem;
+      border: 0.5px solid rgba(232,181,192,0.4);
+      color: var(--blush);
+      text-decoration: none;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.76rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      transition: background 0.3s;
+      background: transparent;
+      font-weight: 400;
+    }
+    .btn-ghost-dark:hover { background: rgba(232,181,192,0.08); }
+
+    .btn-ghost-light {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.75rem 2rem;
+      border: 0.5px solid var(--rose);
+      color: var(--mauve);
+      text-decoration: none;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.76rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      transition: background 0.3s;
+      background: transparent;
+      font-weight: 400;
+    }
+    .btn-ghost-light:hover { background: var(--blush-light); }
+
+    /* ── BANK CARD ── */
+    .bank-card {
+      border: 0.5px solid rgba(232,181,192,0.25);
+      margin-top: 2.25rem;
+      background: rgba(255,255,255,0.05);
+    }
+    .bank-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.9rem 1.5rem;
+      border-bottom: 0.5px solid rgba(232,181,192,0.15);
+    }
+    .bank-row:last-child { border-bottom: none; }
+    .bank-label {
+      font-size: 0.74rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blush);
+      opacity: 0.6;
+      font-weight: 400;
+    }
+    .bank-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: var(--cream);
+    }
+
+    /* ── SPOTIFY ── */
+    .spotify-wrap {
+      margin-top: 2rem;
+      border: 0.5px solid rgba(190,104,120,0.3);
+      overflow: hidden;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      text-align: center;
+      padding: 3.5rem 2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--blush);
+      opacity: 0.5;
+      border-top: 0.5px solid rgba(232,181,192,0.15);
+    }
+
+    /* ── ANIMATION ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fi  { animation: fadeUp 0.9s ease both; }
+    .d1  { animation-delay: 0.15s; }
+    .d2  { animation-delay: 0.3s; }
+    .d3  { animation-delay: 0.45s; }
+
+    @media (max-width: 480px) {
+      .section-wrap { padding: 4rem 1.5rem; }
+      .cd-item { padding: 1.1rem 0.25rem; }
+      .bank-row { flex-direction: column; align-items: flex-start; gap: 3px; padding: 0.75rem 1.25rem; }
     }
   </style>
 </head>
 <body>
 
-<!-- LOCK -->
-<div id="lock-screen">
-  <h1>Lule <span class="amp">&amp;</span> Luchi</h1>
-  <p>Lista de invitados</p>
-  <div class="pwd-form">
-    <input type="password" id="pwd" placeholder="contraseña" autocomplete="off"
-      onkeydown="if(event.key==='Enter') check()">
-    <button onclick="check()">Entrar</button>
-    <span class="error-msg" id="err"></span>
+<!-- ═══ HERO · DARK ═══ -->
+<div class="hero">
+  <div class="hero-lines">
+    <svg viewBox="0 0 1400 700" preserveAspectRatio="xMidYMid slice"
+      style="width:100%;height:100%;position:absolute;top:0;left:0;" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-20 700 Q120 480 60 180 Q30 60 80 -20"    fill="none" stroke="#F7EEE4" stroke-width="1.8" opacity="0.1"/>
+      <path d="M30 700 Q200 500 150 200 Q120 60 180 -20"   fill="none" stroke="#BE6878" stroke-width="1"   opacity="0.12"/>
+      <path d="M90 700 Q280 540 240 260 Q220 120 280 -20"  fill="none" stroke="#E8B5C0" stroke-width="0.7" opacity="0.1"/>
+      <path d="M150 700 Q340 570 310 320 Q295 180 360 0"   fill="none" stroke="#F7EEE4" stroke-width="0.5" opacity="0.06"/>
+      <path d="M1420 700 Q1280 480 1340 180 Q1370 60 1320 -20"  fill="none" stroke="#F7EEE4" stroke-width="1.8" opacity="0.1"/>
+      <path d="M1370 700 Q1200 500 1250 200 Q1280 60 1220 -20"  fill="none" stroke="#BE6878" stroke-width="1"   opacity="0.12"/>
+      <path d="M1310 700 Q1120 540 1160 260 Q1180 120 1120 -20" fill="none" stroke="#E8B5C0" stroke-width="0.7" opacity="0.1"/>
+      <path d="M1250 700 Q1060 570 1090 320 Q1105 180 1040 0"   fill="none" stroke="#F7EEE4" stroke-width="0.5" opacity="0.06"/>
+    </svg>
+  </div>
+
+  <p class="pre-title fi">nos casamos</p>
+  <div class="names fi d1">Lule <span class="amp">&amp;</span> Luchi</div>
+  <div class="diamond fi d2" style="width:180px;">
+    <svg width="11" height="11" viewBox="0 0 14 14"><path d="M7 1 L13 7 L7 13 L1 7 Z" fill="#BE6878" opacity="0.7"/></svg>
+  </div>
+  <p class="date-hero fi d3">26 de septiembre · 2026</p>
+</div>
+
+<!-- ═══ DETALLES · LIGHT ═══ -->
+<div class="section-wrap light">
+  <div class="section-inner">
+    <span class="eyebrow">cuándo y dónde</span>
+    <h2>Espacio Lucena</h2>
+    <p>José Pereyra Lucena 540<br>Lomas de Zamora</p>
+    <div class="diamond">
+      <svg width="10" height="10" viewBox="0 0 14 14"><path d="M7 1 L13 7 L7 13 L1 7 Z" fill="#BE6878" opacity="0.5"/></svg>
+    </div>
+    <h2>21:00 hs</h2>
+    <p>26 de septiembre de 2026</p>
+    <div class="notice-box">
+      La ceremonia comienza puntualmente a las 21:00 hs. Tu presencia desde el primer momento es parte de todo.
+    </div>
+    <a href="https://maps.google.com/?q=José+Pereyra+Lucena+540,+Lomas+de+Zamora"
+       target="_blank" class="btn-ghost-light">Cómo llegar →</a>
   </div>
 </div>
 
-<!-- MAIN -->
-<div id="main">
-  <div class="top-bar">
-    <h1>Lule <span class="amp">&amp;</span> Luchi</h1>
-    <p>lista de invitados</p>
-  </div>
-
-  <div class="stats">
-    <div class="stat"><div class="stat-n" id="s-total">—</div><div class="stat-l">Respuestas</div></div>
-    <div class="stat"><div class="stat-n" id="s-yes">—</div><div class="stat-l">Confirman</div></div>
-    <div class="stat"><div class="stat-n" id="s-no">—</div><div class="stat-l">No pueden</div></div>
-  </div>
-
-  <div class="tbl-section">
-    <div class="tbl-toolbar">
-      <span class="tbl-label">Respuestas del formulario</span>
-      <button class="btn-refresh" onclick="load()">↻ Actualizar</button>
+<!-- ═══ COUNTDOWN · DARK ═══ -->
+<div class="section-wrap dark">
+  <div class="section-inner">
+    <span class="eyebrow">falta poco</span>
+    <div class="cd-wrap" id="cd-grid">
+      <div class="cd-item"><span class="cd-num" id="cd-d">--</span><span class="cd-label">días</span></div>
+      <div class="cd-item"><span class="cd-num" id="cd-h">--</span><span class="cd-label">horas</span></div>
+      <div class="cd-item"><span class="cd-num" id="cd-m">--</span><span class="cd-label">minutos</span></div>
+      <div class="cd-item"><span class="cd-num" id="cd-s">--</span><span class="cd-label">segundos</span></div>
     </div>
-    <div class="tbl-wrap">
-      <div class="loading" id="loading">Cargando...</div>
-      <table id="tbl" style="display:none;">
-        <thead>
-          <tr>
-            <th class="left">#</th>
-            <th class="left">Nombre</th>
-            <th>Asistencia</th>
-            <th>Vegetariano/a</th>
-            <th>Vegano/a</th>
-            <th>Celíaco/a</th>
-            <th>Diabético/a</th>
-            <th>Otro</th>
-          </tr>
-        </thead>
-        <tbody id="tbody"></tbody>
-      </table>
+  </div>
+</div>
+
+<!-- ═══ RSVP · LIGHT ═══ -->
+<div class="section-wrap light">
+  <div class="section-inner">
+    <span class="eyebrow">confirmá tu asistencia</span>
+    <h2>¿Venís?</h2>
+    <p>
+      Confirmá antes del <em style="color:var(--mauve); font-style:normal;">[fecha límite]</em>.<br>
+      Si fuiste invitado con acompañante,<br>completá un formulario por persona.
+    </p>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdbx3QvBtQNPkVEazYgozZTRJDjbFNEZ0-q4PbiIBC01YI_yg/viewform?usp=header"
+       target="_blank" class="btn-navy">Confirmar asistencia</a>
+  </div>
+</div>
+
+<!-- ═══ REGALOS · DARK ═══ -->
+<div class="section-wrap dark">
+  <div class="section-inner">
+    <span class="eyebrow">regalos</span>
+    <h2>Para quienes quieran</h2>
+    <p>Si querés hacernos un regalo,<br>podés hacerlo por transferencia.</p>
+    <div class="bank-card">
+      <div class="bank-row">
+        <span class="bank-label">Banco</span>
+        <span class="bank-value">[Nombre del banco]</span>
+      </div>
+      <div class="bank-row">
+        <span class="bank-label">Titular</span>
+        <span class="bank-value">[Nombre titular]</span>
+      </div>
+      <div class="bank-row">
+        <span class="bank-label">CBU / CVU</span>
+        <span class="bank-value">[0000 0000 0000 0000 0000]</span>
+      </div>
+      <div class="bank-row">
+        <span class="bank-label">Alias</span>
+        <span class="bank-value">[alias.transferencia]</span>
+      </div>
     </div>
-    <p class="updated" id="updated"></p>
+  </div>
+</div>
+
+<!-- ═══ SPOTIFY · LIGHT ═══ -->
+<div class="section-wrap light">
+  <div class="section-inner">
+    <span class="eyebrow">la playlist</span>
+    <h2>La música de la noche</h2>
+    <p>¿Qué tema tiene que sonar sí o sí en la pista?<br>Agregalo directamente a la playlist.</p>
+    <div class="spotify-wrap">
+      <iframe src="https://open.spotify.com/embed/playlist/1AAxgQaELMXT19NC5X5uYU?utm_source=generator"
+        width="100%" height="500" frameBorder="0"
+        allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy" style="display:block;"></iframe>
+    </div>
+    <a href="https://open.spotify.com/playlist/1AAxgQaELMXT19NC5X5uYU"
+       target="_blank" class="btn-ghost-light">Agregá tu canción →</a>
+  </div>
+</div>
+
+<!-- ═══ SALUDO · DARK ═══ -->
+<div class="section-wrap dark" style="padding: 5rem 2rem;">
+  <div class="section-inner">
+    <p style="font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,6vw,3rem); font-weight:300; font-style:italic; color:var(--cream); line-height:1.3;">
+      Te esperamos.
+    </p>
+    <div style="width:40px; height:0.5px; background:var(--blush); opacity:0.4; margin:1.75rem auto;"></div>
+    <p style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.6rem,4vw,2.2rem); font-weight:300; color:var(--cream);">
+      Lule <span style="font-style:italic; color:var(--blush);">&amp;</span> Luchi
+    </p>
   </div>
 </div>
 
 <script>
-  const CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ5yynYJis0S-ea7jcqMvpw744WY6qvu5R9rtKykrlhDORJHAfhivCS6HtBHNEWUkDpRLLkt22brA5o/pub?output=csv';
-  const PWD = 'casorio';
-
-  function check() {
-    if (document.getElementById('pwd').value.trim().toLowerCase() === PWD) {
-      document.getElementById('lock-screen').style.display = 'none';
-      document.getElementById('main').style.display = 'block';
-      load();
-    } else {
-      document.getElementById('err').textContent = 'Contraseña incorrecta';
-      document.getElementById('pwd').value = '';
-      setTimeout(() => document.getElementById('err').textContent = '', 2000);
+  const target = new Date('2026-09-26T21:00:00-03:00');
+  function pad(n) { return String(n).padStart(2,'0'); }
+  function tick() {
+    const diff = target - new Date();
+    if (diff <= 0) {
+      document.getElementById('cd-grid').innerHTML =
+        '<p style="grid-column:1/-1;font-family:Cormorant Garamond,serif;font-style:italic;font-size:1.6rem;color:#E8B5C0;">¡Hoy es el gran día!</p>';
+      return;
     }
+    document.getElementById('cd-d').textContent = pad(Math.floor(diff/86400000));
+    document.getElementById('cd-h').textContent = pad(Math.floor(diff%86400000/3600000));
+    document.getElementById('cd-m').textContent = pad(Math.floor(diff%3600000/60000));
+    document.getElementById('cd-s').textContent = pad(Math.floor(diff%60000/1000));
   }
-
-  function parseCSV(text) {
-    const rows = [];
-    for (const line of text.split('\n')) {
-      if (!line.trim()) continue;
-      const cols = []; let cur = '', inQ = false;
-      for (const ch of line) {
-        if (ch === '"') { inQ = !inQ; }
-        else if (ch === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
-        else cur += ch;
-      }
-      cols.push(cur.trim());
-      rows.push(cols);
-    }
-    return rows;
-  }
-
-  function colIdx(headers, keyword) {
-    return headers.findIndex(h => h.toLowerCase().includes(keyword.toLowerCase()));
-  }
-
-  function has(str, keyword) {
-    return str.toLowerCase().includes(keyword.toLowerCase());
-  }
-
-  function load() {
-    document.getElementById('loading').style.display = 'block';
-    document.getElementById('tbl').style.display = 'none';
-
-    fetch(CSV + '&t=' + Date.now())
-      .then(r => r.text())
-      .then(text => {
-        const rows = parseCSV(text);
-        if (rows.length < 2) {
-          document.getElementById('loading').textContent = 'Todavía no hay respuestas.';
-          return;
-        }
-
-        const headers = rows[0];
-        const data    = rows.slice(1);
-
-        // map columns by header content
-        const iNombre  = colIdx(headers, 'llamás') !== -1 ? colIdx(headers, 'llamás') : 1;
-        const iViene   = colIdx(headers, 'venís')  !== -1 ? colIdx(headers, 'venís')  : 2;
-        const iRestr   = colIdx(headers, 'restricc') !== -1 ? colIdx(headers, 'restricc') : 3;
-        const iOtroTxt = colIdx(headers, 'pusiste') !== -1 ? colIdx(headers, 'pusiste') : 4;
-
-        let cYes = 0, cNo = 0;
-        const tbody = document.getElementById('tbody');
-        tbody.innerHTML = '';
-
-        data.forEach((row, i) => {
-          const nombre  = row[iNombre]  || '—';
-          const asist   = row[iViene]   || '';
-          const restr   = row[iRestr]   || '';
-          const otroTxt = row[iOtroTxt] || '';
-
-          // attendance: detect "no" explicitly
-          const noViene = has(asist, 'no voy') || has(asist, 'no puedo') || has(asist, 'no poder') || (asist.trim().toLowerCase().startsWith('no'));
-          const viene   = !noViene && asist.trim() !== '';
-
-          if (viene) cYes++; else if (asist.trim()) cNo++;
-
-          const badge = viene
-            ? '<span class="badge badge-yes">Confirma ✓</span>'
-            : '<span class="badge badge-no">No puede</span>';
-
-          const veg  = has(restr, 'vegetar') ? '<span class="check">✓</span>' : '<span class="dash">—</span>';
-          const vgn  = has(restr, 'vegano')  ? '<span class="check">✓</span>' : '<span class="dash">—</span>';
-          const cel  = has(restr, 'celí') || has(restr, 'celia') ? '<span class="check">✓</span>' : '<span class="dash">—</span>';
-          const dia  = has(restr, 'diabé') || has(restr, 'diabe') ? '<span class="check">✓</span>' : '<span class="dash">—</span>';
-          const otro = has(restr, 'otro') || otroTxt
-            ? `<span class="check" title="${otroTxt || ''}">✓${otroTxt ? ' (' + otroTxt + ')' : ''}</span>`
-            : '<span class="dash">—</span>';
-
-          tbody.innerHTML += `
-            <tr>
-              <td class="left" style="color:var(--mauve);opacity:0.45;font-size:0.75rem;">${i+1}</td>
-              <td class="left" style="font-weight:500;">${nombre}</td>
-              <td>${badge}</td>
-              <td>${veg}</td>
-              <td>${vgn}</td>
-              <td>${cel}</td>
-              <td>${dia}</td>
-              <td>${otro}</td>
-            </tr>`;
-        });
-
-        document.getElementById('s-total').textContent = data.length;
-        document.getElementById('s-yes').textContent   = cYes;
-        document.getElementById('s-no').textContent    = cNo;
-
-        document.getElementById('loading').style.display = 'none';
-        document.getElementById('tbl').style.display     = 'table';
-
-        const now = new Date();
-        document.getElementById('updated').textContent =
-          'Actualizado ' + now.toLocaleDateString('es-AR') + ' · ' +
-          now.toLocaleTimeString('es-AR', {hour:'2-digit', minute:'2-digit'});
-      })
-      .catch(() => {
-        document.getElementById('loading').textContent = 'Error al cargar. Intentá de nuevo.';
-      });
-  }
+  tick();
+  setInterval(tick, 1000);
 </script>
+
 </body>
 </html>
