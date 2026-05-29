@@ -157,11 +157,11 @@
             <th class="left">#</th>
             <th class="left">Nombre</th>
             <th>Asistencia</th>
-            <th>Vegetariano/a</th>
-            <th>Vegano/a</th>
-            <th>Celíaco/a</th>
-            <th>Diabético/a</th>
-            <th>Otro</th>
+            <th>Vegetariano/a<br><span id="cnt-veg" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
+            <th>Vegano/a<br><span id="cnt-vgn" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
+            <th>Celíaco/a<br><span id="cnt-cel" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
+            <th>Diabético/a<br><span id="cnt-dia" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
+            <th>Otro<br><span id="cnt-otro" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
           </tr>
         </thead>
         <tbody id="tbody"></tbody>
@@ -233,7 +233,7 @@
         const iRestr   = colIdx(headers, 'restricc') !== -1 ? colIdx(headers, 'restricc') : 3;
         const iOtroTxt = colIdx(headers, 'pusiste') !== -1 ? colIdx(headers, 'pusiste') : 4;
 
-        let cYes = 0, cNo = 0;
+        let cYes = 0, cNo = 0, cVeg = 0, cVgn = 0, cCel = 0, cDia = 0, cOtro = 0;
         const tbody = document.getElementById('tbody');
         tbody.innerHTML = '';
 
@@ -253,12 +253,12 @@
             ? '<span class="badge badge-yes">Confirma ✓</span>'
             : '<span class="badge badge-no">No puede</span>';
 
-          const veg  = has(restr, 'vegetar') ? '<span class="check">✓</span>' : '<span class="dash">—</span>';
-          const vgn  = has(restr, 'vegano')  ? '<span class="check">✓</span>' : '<span class="dash">—</span>';
-          const cel  = has(restr, 'celí') || has(restr, 'celia') ? '<span class="check">✓</span>' : '<span class="dash">—</span>';
-          const dia  = has(restr, 'diabé') || has(restr, 'diabe') ? '<span class="check">✓</span>' : '<span class="dash">—</span>';
+          const veg  = has(restr, 'vegetar') ? (cVeg++, '<span class="check">✓</span>') : '<span class="dash">—</span>';
+          const vgn  = has(restr, 'vegano')  ? (cVgn++, '<span class="check">✓</span>') : '<span class="dash">—</span>';
+          const cel  = has(restr, 'celí') || has(restr, 'celia') ? (cCel++, '<span class="check">✓</span>') : '<span class="dash">—</span>';
+          const dia  = has(restr, 'diabé') || has(restr, 'diabe') ? (cDia++, '<span class="check">✓</span>') : '<span class="dash">—</span>';
           const otro = has(restr, 'otro') || otroTxt
-            ? `<span class="check" title="${otroTxt || ''}">✓${otroTxt ? ' (' + otroTxt + ')' : ''}</span>`
+            ? (cOtro++, `<span class="check" title="${otroTxt || ''}">✓${otroTxt ? ' (' + otroTxt + ')' : ''}</span>`)
             : '<span class="dash">—</span>';
 
           tbody.innerHTML += `
@@ -277,6 +277,11 @@
         document.getElementById('s-total').textContent = data.length;
         document.getElementById('s-yes').textContent   = cYes;
         document.getElementById('s-no').textContent    = cNo;
+        document.getElementById('cnt-veg').textContent  = cVeg;
+        document.getElementById('cnt-vgn').textContent  = cVgn;
+        document.getElementById('cnt-cel').textContent  = cCel;
+        document.getElementById('cnt-dia').textContent  = cDia;
+        document.getElementById('cnt-otro').textContent = cOtro;
 
         document.getElementById('loading').style.display = 'none';
         document.getElementById('tbl').style.display     = 'table';
