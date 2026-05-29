@@ -234,6 +234,7 @@
         const iOtroTxt = colIdx(headers, 'pusiste') !== -1 ? colIdx(headers, 'pusiste') : 4;
 
         let cYes = 0, cNo = 0, cVeg = 0, cVgn = 0, cCel = 0, cDia = 0, cOtro = 0;
+        const rowsYes = [], rowsNo = [];
         const tbody = document.getElementById('tbody');
         tbody.innerHTML = '';
 
@@ -243,7 +244,6 @@
           const restr   = row[iRestr]   || '';
           const otroTxt = row[iOtroTxt] || '';
 
-          // attendance: detect "no" explicitly
           const noViene = has(asist, 'no voy') || has(asist, 'no puedo') || has(asist, 'no poder') || (asist.trim().toLowerCase().startsWith('no'));
           const viene   = !noViene && asist.trim() !== '';
 
@@ -261,18 +261,37 @@
             ? (cOtro++, `<span class="check" title="${otroTxt || ''}">✓${otroTxt ? ' (' + otroTxt + ')' : ''}</span>`)
             : '<span class="dash">—</span>';
 
-          tbody.innerHTML += `
-            <tr>
+          const rowHtml = `
+            <tr data-viene="${viene}">
               <td class="left" style="color:var(--mauve);opacity:0.45;font-size:0.75rem;">${i+1}</td>
               <td class="left" style="font-weight:500;">${nombre}</td>
               <td>${badge}</td>
-              <td>${veg}</td>
-              <td>${vgn}</td>
-              <td>${cel}</td>
-              <td>${dia}</td>
-              <td>${otro}</td>
+              <td>${veg}</td><td>${vgn}</td><td>${cel}</td><td>${dia}</td><td>${otro}</td>
             </tr>`;
+
+          if (viene) rowsYes.push(rowHtml); else rowsNo.push(rowHtml);
         });
+
+        // group separator row
+        const separator = (label, count) => `
+          <tr>
+            <td colspan="8" style="
+              padding: 1rem 0.75rem 0.5rem;
+              font-size: 0.65rem;
+              letter-spacing: 0.3em;
+              text-transform: uppercase;
+              color: var(--mauve);
+              font-weight: 500;
+              border-bottom: 1px solid var(--navy);
+              background: var(--cream);
+            ">${label} &nbsp;<span style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:300;letter-spacing:0;">${count}</span></td>
+          </tr>`;
+
+        tbody.innerHTML =
+          separator('Confirman', cYes) +
+          rowsYes.join('') +
+          separator('No pueden', cNo) +
+          rowsNo.join('');
 
         document.getElementById('s-total').textContent = data.length;
         document.getElementById('s-yes').textContent   = cYes;
