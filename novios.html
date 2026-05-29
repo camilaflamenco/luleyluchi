@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lule & Luchi · Lista de invitados</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream:      #F7EEE4;
+      --cream-dark: #EDE0D2;
+      --navy:       #1A2B5A;
+      --navy-mid:   #2C4280;
+      --mauve:      #8B5062;
+      --rose:       #BE6878;
+      --blush:      #E8B5C0;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 400;
+      background: var(--navy);
+      color: var(--cream);
+      min-height: 100vh;
+    }
+
+    /* ── PASSWORD SCREEN ── */
+    #lock-screen {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    #lock-screen h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+    }
+
+    #lock-screen h1 .amp {
+      font-style: italic;
+      color: var(--blush);
+    }
+
+    #lock-screen p {
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--blush);
+      opacity: 0.6;
+      margin-bottom: 3rem;
+    }
+
+    .password-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+      max-width: 280px;
+    }
+
+    .password-form input {
+      width: 100%;
+      padding: 0.85rem 1.25rem;
+      background: rgba(255,255,255,0.07);
+      border: 0.5px solid rgba(232,181,192,0.3);
+      color: var(--cream);
+      font-family: 'Raleway', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      text-align: center;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .password-form input::placeholder { color: rgba(232,181,192,0.35); letter-spacing: 0.1em; }
+    .password-form input:focus { border-color: rgba(232,181,192,0.7); }
+
+    .password-form button {
+      width: 100%;
+      padding: 0.85rem;
+      border: 1px solid var(--cream);
+      background: transparent;
+      color: var(--cream);
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+    .password-form button:hover { background: var(--cream); color: var(--navy); }
+
+    .error-msg {
+      font-size: 0.78rem;
+      color: var(--rose);
+      letter-spacing: 0.1em;
+      min-height: 1rem;
+    }
+
+    /* ── MAIN CONTENT ── */
+    #main { display: none; }
+
+    .header {
+      background: var(--navy);
+      padding: 2.5rem 2rem 2rem;
+      text-align: center;
+      border-bottom: 0.5px solid rgba(232,181,192,0.15);
+    }
+
+    .header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 300;
+      color: var(--cream);
+    }
+    .header h1 .amp { font-style: italic; color: var(--blush); }
+
+    .header-sub {
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--blush);
+      opacity: 0.5;
+      margin-top: 0.4rem;
+    }
+
+    /* ── STATS ── */
+    .stats {
+      background: var(--navy);
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.05);
+      border: 0.5px solid rgba(232,181,192,0.15);
+      padding: 1.25rem 1rem;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem;
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--blush);
+      opacity: 0.6;
+      margin-top: 0.4rem;
+    }
+
+    /* ── TABLE SECTION ── */
+    .table-section {
+      background: var(--cream);
+      padding: 2.5rem 2rem;
+    }
+
+    .table-toolbar {
+      max-width: 800px;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .table-title {
+      font-size: 0.72rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--mauve);
+      font-weight: 400;
+    }
+
+    .btn-refresh {
+      padding: 0.6rem 1.4rem;
+      border: 0.5px solid var(--rose);
+      background: transparent;
+      color: var(--mauve);
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-weight: 400;
+    }
+    .btn-refresh:hover { background: var(--blush-light, #F5E2E8); }
+
+    .table-wrap {
+      max-width: 800px;
+      margin: 0 auto;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    thead tr {
+      border-bottom: 1px solid var(--navy);
+    }
+
+    th {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--navy-mid);
+      font-weight: 500;
+      padding: 0.75rem 0.75rem;
+      text-align: left;
+    }
+
+    td {
+      padding: 0.85rem 0.75rem;
+      color: var(--navy);
+      border-bottom: 0.5px solid var(--cream-dark);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--cream-dark); }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      font-weight: 400;
+    }
+
+    .badge-yes {
+      background: rgba(26,43,90,0.1);
+      color: var(--navy);
+    }
+
+    .badge-no {
+      background: rgba(190,104,120,0.12);
+      color: var(--mauve);
+    }
+
+    .loading {
+      text-align: center;
+      padding: 3rem;
+      color: var(--navy-mid);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+    }
+
+    .updated-at {
+      text-align: center;
+      font-size: 0.7rem;
+      color: var(--mauve);
+      opacity: 0.5;
+      margin-top: 1.5rem;
+      letter-spacing: 0.1em;
+    }
+
+    @media (max-width: 480px) {
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      th, td { padding: 0.65rem 0.5rem; font-size: 0.82rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ LOCK SCREEN ═══ -->
+<div id="lock-screen">
+  <h1>Lule <span class="amp">&amp;</span> Luchi</h1>
+  <p>Lista de invitados</p>
+  <div class="password-form">
+    <input type="password" id="pwd-input" placeholder="contraseña" autocomplete="off"
+      onkeydown="if(event.key==='Enter') checkPwd()">
+    <button onclick="checkPwd()">Entrar</button>
+    <span class="error-msg" id="error-msg"></span>
+  </div>
+</div>
+
+<!-- ═══ MAIN ═══ -->
+<div id="main">
+
+  <div class="header">
+    <h1>Lule <span class="amp">&amp;</span> Luchi</h1>
+    <p class="header-sub">lista de invitados</p>
+  </div>
+
+  <div class="stats" id="stats">
+    <div class="stat-card">
+      <div class="stat-num" id="stat-total">—</div>
+      <div class="stat-label">Respuestas</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-yes">—</div>
+      <div class="stat-label">Confirman</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-no">—</div>
+      <div class="stat-label">No pueden</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-restrict">—</div>
+      <div class="stat-label">Con restricción</div>
+    </div>
+  </div>
+
+  <div class="table-section">
+    <div class="table-toolbar">
+      <span class="table-title">Respuestas del formulario</span>
+      <button class="btn-refresh" onclick="loadData()">↻ Actualizar</button>
+    </div>
+    <div class="table-wrap">
+      <div class="loading" id="loading">Cargando...</div>
+      <table id="guest-table" style="display:none;">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Asistencia</th>
+            <th>Alimentación</th>
+            <th>Canción</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </div>
+    <p class="updated-at" id="updated-at"></p>
+  </div>
+
+</div>
+
+<script>
+  const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ5yynYJis0S-ea7jcqMvpw744WY6qvu5R9rtKykrlhDORJHAfhivCS6HtBHNEWUkDpRLLkt22brA5o/pub?output=csv';
+  const PASSWORD = 'casorio';
+
+  function checkPwd() {
+    const val = document.getElementById('pwd-input').value.trim().toLowerCase();
+    if (val === PASSWORD) {
+      document.getElementById('lock-screen').style.display = 'none';
+      document.getElementById('main').style.display = 'block';
+      loadData();
+    } else {
+      document.getElementById('error-msg').textContent = 'Contraseña incorrecta';
+      document.getElementById('pwd-input').value = '';
+      setTimeout(() => document.getElementById('error-msg').textContent = '', 2000);
+    }
+  }
+
+  function parseCSV(text) {
+    const rows = [];
+    const lines = text.split('\n');
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trim();
+      if (!line) continue;
+      const cols = [];
+      let cur = '', inQ = false;
+      for (let c = 0; c < line.length; c++) {
+        const ch = line[c];
+        if (ch === '"') { inQ = !inQ; }
+        else if (ch === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
+        else { cur += ch; }
+      }
+      cols.push(cur.trim());
+      rows.push(cols);
+    }
+    return rows;
+  }
+
+  function loadData() {
+    document.getElementById('loading').style.display = 'block';
+    document.getElementById('guest-table').style.display = 'none';
+
+    fetch(CSV_URL + '&cachebust=' + Date.now())
+      .then(r => r.text())
+      .then(text => {
+        const rows = parseCSV(text);
+        if (rows.length < 2) {
+          document.getElementById('loading').textContent = 'Todavía no hay respuestas.';
+          return;
+        }
+
+        const headers = rows[0];
+        const data = rows.slice(1);
+
+        let countYes = 0, countNo = 0, countRestrict = 0;
+        const tbody = document.getElementById('table-body');
+        tbody.innerHTML = '';
+
+        data.forEach((row, i) => {
+          // cols: 0=timestamp, 1=nombre, 2=asistencia, 3=restriccion, 4=otro, 5=cancion
+          const nombre     = row[1] || '—';
+          const asistencia = row[2] || '—';
+          const restriccion = row[3] || '—';
+          const otro       = row[4] || '';
+          const cancion    = row[5] || '—';
+
+          const viene = asistencia.toLowerCase().includes('sí') || asistencia.toLowerCase().includes('si');
+          if (viene) countYes++; else countNo++;
+
+          const sinRestr = restriccion.toLowerCase().includes('sin restricc') || restriccion.toLowerCase().includes('como de todo');
+          if (!sinRestr && restriccion !== '—') countRestrict++;
+
+          const restDisplay = otro ? restriccion + ' — ' + otro : restriccion;
+          const badge = viene
+            ? '<span class="badge badge-yes">Confirma</span>'
+            : '<span class="badge badge-no">No puede</span>';
+
+          tbody.innerHTML += `
+            <tr>
+              <td style="color:var(--mauve);opacity:0.5;font-size:0.78rem;">${i + 1}</td>
+              <td style="font-weight:500;">${nombre}</td>
+              <td>${badge}</td>
+              <td>${restDisplay}</td>
+              <td style="font-style:italic;color:var(--navy-mid);">${cancion}</td>
+            </tr>`;
+        });
+
+        document.getElementById('stat-total').textContent = data.length;
+        document.getElementById('stat-yes').textContent = countYes;
+        document.getElementById('stat-no').textContent = countNo;
+        document.getElementById('stat-restrict').textContent = countRestrict;
+
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('guest-table').style.display = 'table';
+
+        const now = new Date();
+        document.getElementById('updated-at').textContent =
+          'Actualizado ' + now.toLocaleDateString('es-AR') + ' ' + now.toLocaleTimeString('es-AR', {hour:'2-digit', minute:'2-digit'});
+      })
+      .catch(() => {
+        document.getElementById('loading').textContent = 'Error al cargar. Intentá de nuevo.';
+      });
+  }
+</script>
+
+</body>
+</html>
