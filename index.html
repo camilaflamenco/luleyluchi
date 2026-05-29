@@ -6,7 +6,7 @@
   <title>Lule & Luchi · 26.09.2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Raleway:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --cream:       #F7EEE4;
@@ -17,19 +17,44 @@
       --rose:        #BE6878;
       --blush:       #E8B5C0;
       --blush-light: #F5E2E8;
-      --gold:        #B89050;
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+    body { font-family: 'Raleway', sans-serif; font-weight: 400; overflow-x: hidden; }
 
-    body {
-      background: var(--cream);
-      color: var(--navy);
-      font-family: 'Raleway', sans-serif;
-      font-weight: 300;
-      overflow-x: hidden;
+    /* ── SHARED SECTION LAYOUT ── */
+    .section-wrap {
+      width: 100%;
+      padding: 6rem 2rem;
     }
+    .section-inner {
+      max-width: 580px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    /* ── DARK sections (navy bg) ── */
+    .dark {
+      background: var(--navy);
+    }
+    .dark .eyebrow  { color: var(--blush); }
+    .dark h2        { color: var(--cream); }
+    .dark p         { color: var(--blush); opacity: 0.85; }
+    .dark .notice-box { border-color: rgba(232,181,192,0.35); color: var(--blush); }
+    .dark .diamond::before,
+    .dark .diamond::after { background: rgba(232,181,192,0.4); }
+
+    /* ── LIGHT sections (cream bg) ── */
+    .light {
+      background: var(--cream);
+    }
+    .light .eyebrow  { color: var(--mauve); }
+    .light h2        { color: var(--navy); }
+    .light p         { color: var(--navy-mid); }
+    .light .notice-box { border-color: var(--rose); color: var(--mauve); }
+    .light .diamond::before,
+    .light .diamond::after { background: rgba(190,104,120,0.4); }
 
     /* ── HERO ── */
     .hero {
@@ -42,23 +67,23 @@
       padding: 5rem 2rem 4rem;
       position: relative;
       overflow: hidden;
-      background: var(--cream);
+      background: var(--navy);
     }
 
-    .hero-floral {
+    .hero-lines {
       position: absolute;
       inset: 0;
       pointer-events: none;
-      overflow: hidden;
     }
 
     .pre-title {
-      font-size: 0.68rem;
+      font-size: 0.78rem;
       letter-spacing: 0.45em;
       text-transform: uppercase;
-      color: var(--mauve);
+      color: var(--blush);
       margin-bottom: 2rem;
       position: relative;
+      font-weight: 400;
     }
 
     .names {
@@ -66,26 +91,24 @@
       font-size: clamp(3.8rem, 13vw, 7.5rem);
       font-weight: 300;
       line-height: 1;
-      color: var(--navy);
+      color: var(--cream);
       position: relative;
       animation: fadeUp 1s ease both;
     }
-
-    .names .amp {
-      font-style: italic;
-      color: var(--mauve);
-    }
+    .names .amp { font-style: italic; color: var(--blush); }
 
     .date-hero {
-      font-size: 0.72rem;
+      font-size: 0.84rem;
       letter-spacing: 0.45em;
       text-transform: uppercase;
-      color: var(--navy-mid);
+      color: var(--blush);
+      opacity: 0.75;
       margin-top: 1.75rem;
       position: relative;
+      font-weight: 400;
     }
 
-    /* ── ORNAMENTS ── */
+    /* ── DIAMOND ── */
     .diamond {
       display: flex;
       align-items: center;
@@ -93,63 +116,42 @@
       margin: 1.75rem auto;
       width: 200px;
     }
-    .diamond::before,
-    .diamond::after {
+    .diamond::before, .diamond::after {
       content: '';
       flex: 1;
       height: 0.5px;
-      background: var(--rose);
-      opacity: 0.5;
     }
 
-    .v-divider {
-      width: 0.5px;
-      height: 4.5rem;
-      background: var(--rose);
-      opacity: 0.3;
-      margin: 0 auto;
-    }
-
-    /* ── SECTIONS ── */
-    section {
-      max-width: 580px;
-      margin: 0 auto;
-      padding: 5rem 2rem;
-      text-align: center;
-    }
-
+    /* ── EYEBROW ── */
     .eyebrow {
-      font-size: 0.65rem;
+      font-size: 0.74rem;
       letter-spacing: 0.42em;
       text-transform: uppercase;
-      color: var(--mauve);
       margin-bottom: 1.75rem;
       display: block;
+      font-weight: 400;
     }
 
+    /* ── HEADINGS & TEXT ── */
     h2 {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 400;
       font-size: clamp(2rem, 6vw, 3rem);
-      color: var(--navy);
       margin-bottom: 0.85rem;
       line-height: 1.1;
     }
-
     p {
-      font-size: 0.92rem;
+      font-size: 1rem;
       line-height: 2;
-      color: var(--navy-mid);
+      font-weight: 400;
     }
 
     .notice-box {
       margin-top: 2rem;
       padding: 1.25rem 1.75rem;
-      border: 0.5px solid var(--rose);
-      border-radius: 2px;
-      font-size: 0.85rem;
+      border: 0.5px solid;
+      font-size: 0.92rem;
       font-style: italic;
-      color: var(--mauve);
       line-height: 1.85;
     }
 
@@ -160,33 +162,49 @@
       gap: 0.75rem;
       margin-top: 2.5rem;
     }
-
     .cd-item {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 0.5rem;
       padding: 1.5rem 0.5rem;
-      background: var(--cream-dark);
-      border: 0.5px solid var(--blush);
+      background: rgba(255,255,255,0.06);
+      border: 0.5px solid rgba(232,181,192,0.2);
     }
-
     .cd-num {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(2.4rem, 7vw, 3.8rem);
       font-weight: 300;
-      color: var(--navy);
+      color: var(--cream);
       line-height: 1;
     }
-
     .cd-label {
-      font-size: 0.6rem;
+      font-size: 0.68rem;
       letter-spacing: 0.32em;
       text-transform: uppercase;
-      color: var(--mauve);
+      color: var(--blush);
+      opacity: 0.7;
+      font-weight: 400;
     }
 
     /* ── BUTTONS ── */
+    .btn-cream {
+      display: inline-block;
+      margin-top: 2.25rem;
+      padding: 0.9rem 2.75rem;
+      border: 1px solid var(--cream);
+      color: var(--cream);
+      text-decoration: none;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      transition: background 0.3s, color 0.3s;
+      background: transparent;
+      font-weight: 400;
+    }
+    .btn-cream:hover { background: var(--cream); color: var(--navy); }
+
     .btn-navy {
       display: inline-block;
       margin-top: 2.25rem;
@@ -195,19 +213,33 @@
       color: var(--navy);
       text-decoration: none;
       font-family: 'Raleway', sans-serif;
-      font-size: 0.7rem;
+      font-size: 0.78rem;
       letter-spacing: 0.32em;
       text-transform: uppercase;
       transition: background 0.3s, color 0.3s;
-      cursor: pointer;
       background: transparent;
+      font-weight: 400;
     }
-    .btn-navy:hover {
-      background: var(--navy);
-      color: var(--cream);
-    }
+    .btn-navy:hover { background: var(--navy); color: var(--cream); }
 
-    .btn-ghost {
+    .btn-ghost-dark {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.75rem 2rem;
+      border: 0.5px solid rgba(232,181,192,0.4);
+      color: var(--blush);
+      text-decoration: none;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.76rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      transition: background 0.3s;
+      background: transparent;
+      font-weight: 400;
+    }
+    .btn-ghost-dark:hover { background: rgba(232,181,192,0.08); }
+
+    .btn-ghost-light {
       display: inline-block;
       margin-top: 1.5rem;
       padding: 0.75rem 2rem;
@@ -215,61 +247,61 @@
       color: var(--mauve);
       text-decoration: none;
       font-family: 'Raleway', sans-serif;
-      font-size: 0.68rem;
+      font-size: 0.76rem;
       letter-spacing: 0.28em;
       text-transform: uppercase;
       transition: background 0.3s;
-      cursor: pointer;
       background: transparent;
+      font-weight: 400;
     }
-    .btn-ghost:hover { background: var(--blush-light); }
+    .btn-ghost-light:hover { background: var(--blush-light); }
 
     /* ── BANK CARD ── */
     .bank-card {
-      border: 0.5px solid var(--blush);
+      border: 0.5px solid rgba(232,181,192,0.25);
       margin-top: 2.25rem;
-      background: var(--cream-dark);
+      background: rgba(255,255,255,0.05);
     }
-
     .bank-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 0.9rem 1.5rem;
-      border-bottom: 0.5px solid var(--blush);
+      border-bottom: 0.5px solid rgba(232,181,192,0.15);
     }
     .bank-row:last-child { border-bottom: none; }
-
     .bank-label {
-      font-size: 0.68rem;
+      font-size: 0.74rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--mauve);
+      color: var(--blush);
+      opacity: 0.6;
+      font-weight: 400;
     }
-
     .bank-value {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.05rem;
-      color: var(--navy);
+      color: var(--cream);
     }
 
     /* ── SPOTIFY ── */
     .spotify-wrap {
       margin-top: 2rem;
-      border: 0.5px solid var(--blush);
+      border: 0.5px solid rgba(190,104,120,0.3);
       overflow: hidden;
     }
 
     /* ── FOOTER ── */
     footer {
+      background: var(--navy);
       text-align: center;
-      padding: 4rem 2rem 3rem;
+      padding: 3.5rem 2rem;
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
       font-size: 1.05rem;
-      color: var(--mauve);
+      color: var(--blush);
       opacity: 0.5;
-      border-top: 0.5px solid var(--blush);
+      border-top: 0.5px solid rgba(232,181,192,0.15);
     }
 
     /* ── ANIMATION ── */
@@ -277,13 +309,13 @@
       from { opacity: 0; transform: translateY(18px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .fi   { animation: fadeUp 0.9s ease both; }
-    .d1   { animation-delay: 0.15s; }
-    .d2   { animation-delay: 0.3s; }
-    .d3   { animation-delay: 0.45s; }
+    .fi  { animation: fadeUp 0.9s ease both; }
+    .d1  { animation-delay: 0.15s; }
+    .d2  { animation-delay: 0.3s; }
+    .d3  { animation-delay: 0.45s; }
 
     @media (max-width: 480px) {
-      section { padding: 3.5rem 1.5rem; }
+      .section-wrap { padding: 4rem 1.5rem; }
       .cd-item { padding: 1.1rem 0.25rem; }
       .bank-row { flex-direction: column; align-items: flex-start; gap: 3px; padding: 0.75rem 1.25rem; }
     }
@@ -291,153 +323,121 @@
 </head>
 <body>
 
-<!-- ═══ HERO ═══ -->
+<!-- ═══ HERO · DARK ═══ -->
 <div class="hero">
-
-  <div class="hero-floral">
+  <div class="hero-lines">
     <svg viewBox="0 0 1400 700" preserveAspectRatio="xMidYMid slice"
       style="width:100%;height:100%;position:absolute;top:0;left:0;" xmlns="http://www.w3.org/2000/svg">
-      <!-- LEFT -->
-      <path d="M-20 700 Q120 480 60 180 Q30 60 80 -20"   fill="none" stroke="#1A2B5A" stroke-width="1.8" opacity="0.18"/>
-      <path d="M30 700 Q200 500 150 200 Q120 60 180 -20"  fill="none" stroke="#8B5062" stroke-width="1"   opacity="0.15"/>
-      <path d="M90 700 Q280 540 240 260 Q220 120 280 -20" fill="none" stroke="#BE6878" stroke-width="0.7" opacity="0.13"/>
-      <path d="M150 700 Q340 570 310 320 Q295 180 360 0"  fill="none" stroke="#1A2B5A" stroke-width="0.5" opacity="0.08"/>
-      <!-- RIGHT -->
-      <path d="M1420 700 Q1280 480 1340 180 Q1370 60 1320 -20"  fill="none" stroke="#1A2B5A" stroke-width="1.8" opacity="0.18"/>
-      <path d="M1370 700 Q1200 500 1250 200 Q1280 60 1220 -20"  fill="none" stroke="#8B5062" stroke-width="1"   opacity="0.15"/>
-      <path d="M1310 700 Q1120 540 1160 260 Q1180 120 1120 -20" fill="none" stroke="#BE6878" stroke-width="0.7" opacity="0.13"/>
-      <path d="M1250 700 Q1060 570 1090 320 Q1105 180 1040 0"   fill="none" stroke="#1A2B5A" stroke-width="0.5" opacity="0.08"/>
+      <path d="M-20 700 Q120 480 60 180 Q30 60 80 -20"    fill="none" stroke="#F7EEE4" stroke-width="1.8" opacity="0.1"/>
+      <path d="M30 700 Q200 500 150 200 Q120 60 180 -20"   fill="none" stroke="#BE6878" stroke-width="1"   opacity="0.12"/>
+      <path d="M90 700 Q280 540 240 260 Q220 120 280 -20"  fill="none" stroke="#E8B5C0" stroke-width="0.7" opacity="0.1"/>
+      <path d="M150 700 Q340 570 310 320 Q295 180 360 0"   fill="none" stroke="#F7EEE4" stroke-width="0.5" opacity="0.06"/>
+      <path d="M1420 700 Q1280 480 1340 180 Q1370 60 1320 -20"  fill="none" stroke="#F7EEE4" stroke-width="1.8" opacity="0.1"/>
+      <path d="M1370 700 Q1200 500 1250 200 Q1280 60 1220 -20"  fill="none" stroke="#BE6878" stroke-width="1"   opacity="0.12"/>
+      <path d="M1310 700 Q1120 540 1160 260 Q1180 120 1120 -20" fill="none" stroke="#E8B5C0" stroke-width="0.7" opacity="0.1"/>
+      <path d="M1250 700 Q1060 570 1090 320 Q1105 180 1040 0"   fill="none" stroke="#F7EEE4" stroke-width="0.5" opacity="0.06"/>
     </svg>
   </div>
 
   <p class="pre-title fi">nos casamos</p>
-
-  <div class="names fi d1">
-    Lule <span class="amp">&amp;</span> Luchi
+  <div class="names fi d1">Lule <span class="amp">&amp;</span> Luchi</div>
+  <div class="diamond fi d2" style="width:180px;">
+    <svg width="11" height="11" viewBox="0 0 14 14"><path d="M7 1 L13 7 L7 13 L1 7 Z" fill="#BE6878" opacity="0.7"/></svg>
   </div>
-
-  <div class="diamond fi d2">
-    <svg width="12" height="12" viewBox="0 0 14 14">
-      <path d="M7 1 L13 7 L7 13 L1 7 Z" fill="#BE6878" opacity="0.7"/>
-    </svg>
-  </div>
-
   <p class="date-hero fi d3">26 de septiembre · 2026</p>
 </div>
 
-<div class="v-divider"></div>
-
-<!-- ═══ DETALLES ═══ -->
-<section>
-  <span class="eyebrow">cuándo y dónde</span>
-  <h2>Espacio Lucena</h2>
-  <p>José Pereyra Lucena 540<br>Lomas de Zamora</p>
-
-  <div class="diamond">
-    <svg width="10" height="10" viewBox="0 0 14 14">
-      <path d="M7 1 L13 7 L7 13 L1 7 Z" fill="#BE6878" opacity="0.5"/>
-    </svg>
+<!-- ═══ DETALLES · LIGHT ═══ -->
+<div class="section-wrap light">
+  <div class="section-inner">
+    <span class="eyebrow">cuándo y dónde</span>
+    <h2>Espacio Lucena</h2>
+    <p>José Pereyra Lucena 540<br>Lomas de Zamora</p>
+    <div class="diamond">
+      <svg width="10" height="10" viewBox="0 0 14 14"><path d="M7 1 L13 7 L7 13 L1 7 Z" fill="#BE6878" opacity="0.5"/></svg>
+    </div>
+    <h2>21:00 hs</h2>
+    <p>26 de septiembre de 2026</p>
+    <div class="notice-box">
+      La ceremonia comienza puntualmente a las 21:00 hs.<br>
+      Tu presencia desde el primer momento es parte de todo.
+    </div>
+    <a href="https://maps.google.com/?q=José+Pereyra+Lucena+540,+Lomas+de+Zamora"
+       target="_blank" class="btn-ghost-light">Cómo llegar →</a>
   </div>
+</div>
 
-  <h2>21:00 hs</h2>
-  <p>26 de septiembre de 2026</p>
-
-  <div class="notice-box">
-    La ceremonia comienza puntualmente a las 21:00 hs.<br>
-    Tu presencia desde el primer momento es parte de todo.
-  </div>
-
-  <a href="https://maps.google.com/?q=José+Pereyra+Lucena+540,+Lomas+de+Zamora"
-     target="_blank" class="btn-ghost">Cómo llegar →</a>
-</section>
-
-<div class="v-divider"></div>
-
-<!-- ═══ COUNTDOWN ═══ -->
-<section>
-  <span class="eyebrow">falta poco</span>
-  <div class="cd-wrap" id="cd-grid">
-    <div class="cd-item">
-      <span class="cd-num" id="cd-d">--</span>
-      <span class="cd-label">días</span>
-    </div>
-    <div class="cd-item">
-      <span class="cd-num" id="cd-h">--</span>
-      <span class="cd-label">horas</span>
-    </div>
-    <div class="cd-item">
-      <span class="cd-num" id="cd-m">--</span>
-      <span class="cd-label">minutos</span>
-    </div>
-    <div class="cd-item">
-      <span class="cd-num" id="cd-s">--</span>
-      <span class="cd-label">segundos</span>
+<!-- ═══ COUNTDOWN · DARK ═══ -->
+<div class="section-wrap dark">
+  <div class="section-inner">
+    <span class="eyebrow">falta poco</span>
+    <div class="cd-wrap" id="cd-grid">
+      <div class="cd-item"><span class="cd-num" id="cd-d">--</span><span class="cd-label">días</span></div>
+      <div class="cd-item"><span class="cd-num" id="cd-h">--</span><span class="cd-label">horas</span></div>
+      <div class="cd-item"><span class="cd-num" id="cd-m">--</span><span class="cd-label">minutos</span></div>
+      <div class="cd-item"><span class="cd-num" id="cd-s">--</span><span class="cd-label">segundos</span></div>
     </div>
   </div>
-</section>
+</div>
 
-<div class="v-divider"></div>
+<!-- ═══ RSVP · LIGHT ═══ -->
+<div class="section-wrap light">
+  <div class="section-inner">
+    <span class="eyebrow">confirmá tu asistencia</span>
+    <h2>¿Venís?</h2>
+    <p>
+      Confirmá antes del <em style="color:var(--mauve); font-style:normal;">[fecha límite]</em>.<br>
+      Si fuiste invitado con acompañante,<br>completar un formulario por persona.
+    </p>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdbx3QvBtQNPkVEazYgozZTRJDjbFNEZ0-q4PbiIBC01YI_yg/viewform?usp=header"
+       target="_blank" class="btn-navy">Confirmar asistencia</a>
+  </div>
+</div>
 
-<!-- ═══ RSVP ═══ -->
-<section>
-  <span class="eyebrow">confirmá tu asistencia</span>
-  <h2>¿Venís?</h2>
-  <p>
-    Confirmá antes del <em style="color:var(--mauve); font-style:normal;">[fecha límite]</em>.<br>
-    Si fuiste invitado con acompañante,<br>completar un formulario por persona.
-  </p>
-  <a href="#" class="btn-navy">Confirmar asistencia</a>
-</section>
-
-<div class="v-divider"></div>
-
-<!-- ═══ REGALOS ═══ -->
-<section>
-  <span class="eyebrow">regalos</span>
-  <h2>Para quienes quieran</h2>
-  <p>Si querés hacernos un regalo,<br>podés hacerlo por transferencia.</p>
-
-  <div class="bank-card">
-    <div class="bank-row">
-      <span class="bank-label">Banco</span>
-      <span class="bank-value">[Nombre del banco]</span>
-    </div>
-    <div class="bank-row">
-      <span class="bank-label">Titular</span>
-      <span class="bank-value">[Nombre titular]</span>
-    </div>
-    <div class="bank-row">
-      <span class="bank-label">CBU / CVU</span>
-      <span class="bank-value">[0000 0000 0000 0000 0000]</span>
-    </div>
-    <div class="bank-row">
-      <span class="bank-label">Alias</span>
-      <span class="bank-value">[alias.transferencia]</span>
+<!-- ═══ REGALOS · DARK ═══ -->
+<div class="section-wrap dark">
+  <div class="section-inner">
+    <span class="eyebrow">regalos</span>
+    <h2>Para quienes quieran</h2>
+    <p>Si querés hacernos un regalo,<br>podés hacerlo por transferencia.</p>
+    <div class="bank-card">
+      <div class="bank-row">
+        <span class="bank-label">Banco</span>
+        <span class="bank-value">[Nombre del banco]</span>
+      </div>
+      <div class="bank-row">
+        <span class="bank-label">Titular</span>
+        <span class="bank-value">[Nombre titular]</span>
+      </div>
+      <div class="bank-row">
+        <span class="bank-label">CBU / CVU</span>
+        <span class="bank-value">[0000 0000 0000 0000 0000]</span>
+      </div>
+      <div class="bank-row">
+        <span class="bank-label">Alias</span>
+        <span class="bank-value">[alias.transferencia]</span>
+      </div>
     </div>
   </div>
-</section>
+</div>
 
-<div class="v-divider"></div>
-
-<!-- ═══ SPOTIFY ═══ -->
-<section>
-  <span class="eyebrow">la playlist</span>
-  <h2>La música de la noche</h2>
-  <p>¿Qué tema tiene que sonar sí o sí en la pista?<br>Agregalo directamente a la playlist.</p>
-
-  <div class="spotify-wrap">
-    <iframe
-      src="https://open.spotify.com/embed/playlist/1AAxgQaELMXT19NC5X5uYU?utm_source=generator"
-      width="100%" height="352" frameBorder="0"
-      allowfullscreen=""
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-      loading="lazy" style="display:block;">
-    </iframe>
+<!-- ═══ SPOTIFY · LIGHT ═══ -->
+<div class="section-wrap light">
+  <div class="section-inner">
+    <span class="eyebrow">la playlist</span>
+    <h2>La música de la noche</h2>
+    <p>¿Qué tema tiene que sonar sí o sí en la pista?<br>Agregalo directamente a la playlist.</p>
+    <div class="spotify-wrap">
+      <iframe src="https://open.spotify.com/embed/playlist/1AAxgQaELMXT19NC5X5uYU?utm_source=generator"
+        width="100%" height="352" frameBorder="0"
+        allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy" style="display:block;"></iframe>
+    </div>
+    <a href="https://open.spotify.com/playlist/1AAxgQaELMXT19NC5X5uYU"
+       target="_blank" class="btn-ghost-light">Agregá tu canción →</a>
   </div>
-
-  <a href="https://open.spotify.com/playlist/1AAxgQaELMXT19NC5X5uYU"
-     target="_blank" class="btn-ghost">Agregá tu canción →</a>
-</section>
+</div>
 
 <!-- ═══ FOOTER ═══ -->
 <footer>luleyluchi.com</footer>
@@ -449,7 +449,7 @@
     const diff = target - new Date();
     if (diff <= 0) {
       document.getElementById('cd-grid').innerHTML =
-        '<p style="grid-column:1/-1;font-family:Cormorant Garamond,serif;font-style:italic;font-size:1.6rem;color:#8B5062;">¡Hoy es el gran día!</p>';
+        '<p style="grid-column:1/-1;font-family:Cormorant Garamond,serif;font-style:italic;font-size:1.6rem;color:#E8B5C0;">¡Hoy es el gran día!</p>';
       return;
     }
     document.getElementById('cd-d').textContent = pad(Math.floor(diff/86400000));
