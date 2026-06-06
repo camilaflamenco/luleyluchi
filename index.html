@@ -393,7 +393,6 @@
     <span class="eyebrow">confirmá tu asistencia</span>
     <h2>¿Venís?</h2>
     <p>
-      Confirmá antes del <em style="color:var(--mauve); font-style:normal;">[fecha límite]</em>.<br>
       Si fuiste invitado con acompañante,<br>completá un formulario por persona.
     </p>
     <a href="https://docs.google.com/forms/d/e/1FAIpQLSdbx3QvBtQNPkVEazYgozZTRJDjbFNEZ0-q4PbiIBC01YI_yg/viewform?usp=header"
@@ -409,20 +408,34 @@
     <p>Si querés hacernos un regalo,<br>podés hacerlo por transferencia.</p>
     <div class="bank-card">
       <div class="bank-row">
-        <span class="bank-label">Banco</span>
-        <span class="bank-value">[Nombre del banco]</span>
-      </div>
-      <div class="bank-row">
         <span class="bank-label">Titular</span>
-        <span class="bank-value">[Nombre titular]</span>
+        <span class="bank-value">Luciano David Lopez</span>
       </div>
       <div class="bank-row">
-        <span class="bank-label">CBU / CVU</span>
-        <span class="bank-value">[0000 0000 0000 0000 0000]</span>
+        <span class="bank-label">CUIT / CUIL</span>
+        <span class="bank-value">20-33511280-7</span>
+      </div>
+      <div class="bank-row">
+        <span class="bank-label">CVU</span>
+        <span class="bank-value">0000003100069100161738</span>
       </div>
       <div class="bank-row">
         <span class="bank-label">Alias</span>
-        <span class="bank-value">[alias.transferencia]</span>
+        <span class="bank-value" style="display:flex;align-items:center;gap:0.75rem;">
+          lyl3238
+          <button id="copy-btn" onclick="copyAlias()" style="
+            padding: 3px 12px;
+            border: 0.5px solid var(--blush);
+            background: transparent;
+            color: var(--blush);
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+          ">Copiar</button>
+        </span>
       </div>
     </div>
   </div>
@@ -460,6 +473,37 @@
 </div>
 
 <script>
+  function copyAlias() {
+    const btn = document.getElementById('copy-btn');
+    const alias = 'lyl3238';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(alias).then(() => {
+        btn.textContent = '¡Copiado!';
+        setTimeout(() => btn.textContent = 'Copiar', 2500);
+      }).catch(() => fallbackCopy(alias, btn));
+    } else {
+      fallbackCopy(alias, btn);
+    }
+  }
+
+  function fallbackCopy(text, btn) {
+    const el = document.createElement('textarea');
+    el.value = text;
+    el.style.position = 'fixed';
+    el.style.opacity = '0';
+    document.body.appendChild(el);
+    el.focus(); el.select();
+    try {
+      document.execCommand('copy');
+      btn.textContent = '¡Copiado!';
+      setTimeout(() => btn.textContent = 'Copiar', 2500);
+    } catch {
+      btn.textContent = 'lyl3238';
+      setTimeout(() => btn.textContent = 'Copiar', 3000);
+    }
+    document.body.removeChild(el);
+  }
+
   const target = new Date('2026-09-26T21:00:00-03:00');
   function pad(n) { return String(n).padStart(2,'0'); }
   function tick() {
