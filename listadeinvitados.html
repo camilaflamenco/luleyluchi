@@ -84,7 +84,7 @@
     .tbl-section { background: var(--cream); padding: 2rem 1.5rem 3rem; }
 
     .tbl-toolbar {
-      max-width: 900px; margin: 0 auto 1.75rem;
+      max-width: 700px; margin: 0 auto 1.75rem;
       display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;
     }
     .tbl-label { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--mauve); }
@@ -99,7 +99,7 @@
     .btn-print:hover { background: var(--cream-dark); }
 
     /* section blocks */
-    .section-block { max-width: 900px; margin: 0 auto 2.75rem; }
+    .section-block { max-width: 700px; margin: 0 auto 2.75rem; }
     .section-title {
       font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1.4rem; color: var(--navy);
       display: flex; align-items: baseline; justify-content: space-between;
@@ -118,11 +118,11 @@
     thead tr { border-bottom: 1px solid var(--navy); }
     th {
       font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--navy-mid); font-weight: 500; padding: 0.7rem 0.6rem; text-align: center; white-space: nowrap;
+      color: var(--navy-mid); font-weight: 500; padding: 0.7rem 0.6rem; text-align: left; white-space: nowrap;
     }
-    th.left { text-align: left; }
-    td { padding: 0.8rem 0.6rem; color: var(--navy); border-bottom: 0.5px solid var(--cream-dark); text-align: center; vertical-align: middle; }
-    td.left { text-align: left; }
+    th.center { text-align: center; }
+    td { padding: 0.8rem 0.6rem; color: var(--navy); border-bottom: 0.5px solid var(--cream-dark); text-align: left; vertical-align: middle; }
+    td.center { text-align: center; }
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: var(--cream-dark); }
 
@@ -130,10 +130,10 @@
     .badge-yes { background: rgba(26,43,90,0.1); color: var(--navy); }
     .badge-no  { background: rgba(190,104,120,0.12); color: var(--mauve); }
 
-    .check { color: var(--mauve); font-size: 1rem; }
-    .dash  { color: #ccc; font-size: 0.8rem; }
+    .restr-text { font-size: 0.82rem; }
+    .dash { color: #ccc; }
 
-    .actions-cell { white-space: nowrap; }
+    .actions-cell { white-space: nowrap; text-align: right; }
     .btn-mini {
       border: 0.5px solid var(--rose); background: transparent; color: var(--mauve);
       font-family: 'Raleway', sans-serif; font-size: 0.62rem; letter-spacing: 0.05em;
@@ -142,6 +142,8 @@
     .btn-mini:hover { background: #F5E2E8; }
     .btn-mini.danger { border-color: #a94442; color: #a94442; }
     .btn-mini.danger:hover { background: #fbe6e6; }
+    .btn-mini.ok { border-color: var(--navy); color: var(--navy); }
+    .btn-mini.ok:hover { background: var(--cream-dark); }
 
     .empty-row td { text-align: center; padding: 1.5rem; color: var(--mauve); opacity: 0.5; font-size: 0.8rem; }
 
@@ -153,16 +155,27 @@
       th, td { padding: 0.6rem 0.4rem; font-size: 0.78rem; }
     }
 
-    /* ── PRINT: only "Confirman" section ── */
+    /* ── PRINT: solo "Confirman", sin fondo de color ── */
     @media print {
+      :root {
+        --cream: #ffffff;
+        --cream-dark: #ffffff;
+      }
       .no-print { display: none !important; }
-      body { background: #fff; }
-      .top-bar { padding: 0.5rem 0 1rem; border-bottom: 1px solid #000; }
+      body { background: #fff; color: #000; }
+      .top-bar { padding: 0 0 0.75rem; border-bottom: 1px solid #000; }
+      .top-bar h1, .top-bar h1 .amp { color: #000; }
+      .top-bar p { color: #000; opacity: 0.7; }
       .tbl-section { padding: 0.5rem 0; }
       .section-block { margin-bottom: 1rem; }
+      .section-title { color: #000; border-bottom: 1px solid #000; }
+      thead tr { border-bottom: 1px solid #000; }
+      th { color: #000; }
+      td { color: #000; border-bottom: 0.5px solid #ddd; }
       table { font-size: 0.78rem; }
-      th, td { padding: 0.4rem 0.3rem; }
+      th, td { padding: 0.45rem 0.3rem; }
       tr:hover td { background: none; }
+      .badge-yes, .badge-no { background: transparent; border: 1px solid #000; color: #000; padding: 2px 8px; }
     }
   </style>
 </head>
@@ -214,15 +227,10 @@
           <table>
             <thead>
               <tr>
-                <th class="left">#</th>
-                <th class="left">Nombre</th>
-                <th>Asistencia</th>
-                <th>Vegetariano/a<br><span id="cnt-veg" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
-                <th>Vegano/a<br><span id="cnt-vgn" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
-                <th>Celíaco/a<br><span id="cnt-cel" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
-                <th>Diabético/a<br><span id="cnt-dia" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
-                <th>Otro<br><span id="cnt-otro" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
-                <th class="no-print">Acciones</th>
+                <th>Nombre</th>
+                <th class="center">Confirma</th>
+                <th>Restricción</th>
+                <th class="no-print"></th>
               </tr>
             </thead>
             <tbody id="tbody-yes"></tbody>
@@ -237,15 +245,10 @@
           <table>
             <thead>
               <tr>
-                <th class="left">#</th>
-                <th class="left">Nombre</th>
-                <th>Asistencia</th>
-                <th>Vegetariano/a</th>
-                <th>Vegano/a</th>
-                <th>Celíaco/a</th>
-                <th>Diabético/a</th>
-                <th>Otro</th>
-                <th>Acciones</th>
+                <th>Nombre</th>
+                <th class="center">Confirma</th>
+                <th>Restricción</th>
+                <th></th>
               </tr>
             </thead>
             <tbody id="tbody-no"></tbody>
@@ -260,15 +263,10 @@
           <table>
             <thead>
               <tr>
-                <th class="left">#</th>
-                <th class="left">Nombre</th>
-                <th>Asistencia</th>
-                <th>Vegetariano/a</th>
-                <th>Vegano/a</th>
-                <th>Celíaco/a</th>
-                <th>Diabético/a</th>
-                <th>Otro</th>
-                <th>Acciones</th>
+                <th>Nombre</th>
+                <th class="center">Confirma</th>
+                <th>Restricción</th>
+                <th></th>
               </tr>
             </thead>
             <tbody id="tbody-trash"></tbody>
@@ -284,8 +282,9 @@
 <script>
   const CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ5yynYJis0S-ea7jcqMvpw744WY6qvu5R9rtKykrlhDORJHAfhivCS6HtBHNEWUkDpRLLkt22brA5o/pub?output=csv';
   const PWD = 'casorio';
-  const TRASH_KEY   = 'll_trash';
-  const DELETED_KEY = 'll_deleted';
+  const TRASH_KEY    = 'll_trash';
+  const DELETED_KEY  = 'll_deleted';
+  const OVERRIDE_KEY = 'll_override'; // { id: 'yes' | 'no' }  — usado al mover desde papelera
 
   function check() {
     if (document.getElementById('pwd').value.trim().toLowerCase() === PWD) {
@@ -323,19 +322,25 @@
     return str.toLowerCase().includes(keyword.toLowerCase());
   }
 
-  // ── papelera / eliminados (persisten en este navegador) ──
-  function getTrash()   { try { return JSON.parse(localStorage.getItem(TRASH_KEY)   || '[]'); } catch(e) { return []; } }
-  function setTrash(a)  { localStorage.setItem(TRASH_KEY, JSON.stringify(a)); }
-  function getDeleted() { try { return JSON.parse(localStorage.getItem(DELETED_KEY) || '[]'); } catch(e) { return []; } }
-  function setDeleted(a){ localStorage.setItem(DELETED_KEY, JSON.stringify(a)); }
+  // ── papelera / eliminados / cambios manuales de categoría (persisten en este navegador) ──
+  function getTrash()     { try { return JSON.parse(localStorage.getItem(TRASH_KEY)    || '[]'); } catch(e) { return []; } }
+  function setTrash(a)    { localStorage.setItem(TRASH_KEY, JSON.stringify(a)); }
+  function getDeleted()   { try { return JSON.parse(localStorage.getItem(DELETED_KEY)  || '[]'); } catch(e) { return []; } }
+  function setDeleted(a)  { localStorage.setItem(DELETED_KEY, JSON.stringify(a)); }
+  function getOverride()  { try { return JSON.parse(localStorage.getItem(OVERRIDE_KEY) || '{}'); } catch(e) { return {}; } }
+  function setOverride(o) { localStorage.setItem(OVERRIDE_KEY, JSON.stringify(o)); }
 
   function moveToTrash(id) {
     const t = getTrash();
     if (!t.includes(id)) { t.push(id); setTrash(t); }
     load();
   }
-  function restoreFromTrash(id) {
+  function moveToCategory(id, cat) {
+    // cat: 'yes' o 'no' — se usa desde la papelera para reclasificar
     setTrash(getTrash().filter(x => x !== id));
+    const o = getOverride();
+    o[id] = cat;
+    setOverride(o);
     load();
   }
   function deleteForever(id) {
@@ -349,20 +354,20 @@
   function renderSection(tbodyId, list, kind) {
     const tbody = document.getElementById(tbodyId);
     if (list.length === 0) {
-      tbody.innerHTML = `<tr class="empty-row"><td colspan="9">Sin respuestas en esta sección.</td></tr>`;
+      tbody.innerHTML = `<tr class="empty-row"><td colspan="4">Sin respuestas en esta sección.</td></tr>`;
       return;
     }
-    tbody.innerHTML = list.map((item, idx) => {
+    tbody.innerHTML = list.map(item => {
       const actions = kind === 'trash'
-        ? `<button class="btn-mini" onclick="restoreFromTrash('${item.idAttr}')">↩ Restaurar</button>
-           <button class="btn-mini danger" onclick="deleteForever('${item.idAttr}')">✕ Eliminar</button>`
-        : `<button class="btn-mini" onclick="moveToTrash('${item.idAttr}')">🗑 Papelera</button>`;
+        ? `<button class="btn-mini ok" onclick="moveToCategory('${item.idAttr}','yes')">Confirma</button>
+           <button class="btn-mini" onclick="moveToCategory('${item.idAttr}','no')">No puede</button>
+           <button class="btn-mini danger" onclick="deleteForever('${item.idAttr}')">✕</button>`
+        : `<button class="btn-mini danger" onclick="moveToTrash('${item.idAttr}')">🗑 Papelera</button>`;
       return `
         <tr>
-          <td class="left" style="color:var(--mauve);opacity:0.45;font-size:0.75rem;">${idx + 1}</td>
-          <td class="left" style="font-weight:500;">${item.nombre}</td>
-          <td>${item.badge}</td>
-          <td>${item.veg}</td><td>${item.vgn}</td><td>${item.cel}</td><td>${item.dia}</td><td>${item.otro}</td>
+          <td style="font-weight:500;">${item.nombre}</td>
+          <td class="center">${item.badge}</td>
+          <td class="restr-text">${item.restr || '<span class="dash">—</span>'}</td>
           <td class="actions-cell no-print">${actions}</td>
         </tr>`;
     }).join('');
@@ -385,15 +390,15 @@
         const headers = rows[0];
         const data    = rows.slice(1);
 
-        const iNombre  = colIdx(headers, 'llamás')    !== -1 ? colIdx(headers, 'llamás')    : 1;
-        const iViene   = colIdx(headers, 'venís')     !== -1 ? colIdx(headers, 'venís')     : 2;
-        const iRestr   = colIdx(headers, 'restricc')  !== -1 ? colIdx(headers, 'restricc')  : 3;
-        const iOtroTxt = colIdx(headers, 'pusiste')   !== -1 ? colIdx(headers, 'pusiste')   : 4;
+        const iNombre  = colIdx(headers, 'llamás')   !== -1 ? colIdx(headers, 'llamás')   : 1;
+        const iViene   = colIdx(headers, 'venís')    !== -1 ? colIdx(headers, 'venís')    : 2;
+        const iRestr   = colIdx(headers, 'restricc') !== -1 ? colIdx(headers, 'restricc') : 3;
+        const iOtroTxt = colIdx(headers, 'pusiste')  !== -1 ? colIdx(headers, 'pusiste')  : 4;
 
-        const trash   = getTrash();
-        const deleted = getDeleted();
+        const trash    = getTrash();
+        const deleted  = getDeleted();
+        const override = getOverride();
 
-        let cVeg = 0, cVgn = 0, cCel = 0, cDia = 0, cOtro = 0;
         const listYes = [], listNo = [], listTrash = [];
 
         data.forEach((row, i) => {
@@ -408,41 +413,38 @@
           if (!asist.trim() && (!nombre || nombre === '—')) return;
 
           const noViene = has(asist, 'no voy') || has(asist, 'no puedo') || has(asist, 'no poder') || (asist.trim().toLowerCase().startsWith('no'));
-          const viene   = !noViene && asist.trim() !== '';
+          const vieneNatural = !noViene && asist.trim() !== '';
 
-          const veg  = has(restr, 'vegetar');
-          const vgn  = has(restr, 'vegano');
-          const cel  = has(restr, 'celí') || has(restr, 'celia');
-          const dia  = has(restr, 'diabé') || has(restr, 'diabe');
-          const otro = has(restr, 'otro') || !!otroTxt;
+          let restrText = restr.trim();
+          if (otroTxt.trim() && !restrText.toLowerCase().includes(otroTxt.trim().toLowerCase())) {
+            restrText = restrText ? restrText + ' — ' + otroTxt.trim() : otroTxt.trim();
+          }
+
+          // categoría: override manual > papelera > natural (según respuesta del formulario)
+          let category;
+          if (trash.includes(rawId)) {
+            category = 'trash';
+          } else if (override[rawId]) {
+            category = override[rawId];
+          } else {
+            category = vieneNatural ? 'yes' : (asist.trim() ? 'no' : null);
+          }
+          if (category === null) return;
+
+          const viene = category === 'yes';
 
           const item = {
             idAttr: rawId.replace(/'/g, "\\'"),
             nombre,
             badge: viene
-              ? '<span class="badge badge-yes">Confirma ✓</span>'
+              ? '<span class="badge badge-yes">Confirma</span>'
               : '<span class="badge badge-no">No puede</span>',
-            veg:  veg  ? '<span class="check">✓</span>' : '<span class="dash">—</span>',
-            vgn:  vgn  ? '<span class="check">✓</span>' : '<span class="dash">—</span>',
-            cel:  cel  ? '<span class="check">✓</span>' : '<span class="dash">—</span>',
-            dia:  dia  ? '<span class="check">✓</span>' : '<span class="dash">—</span>',
-            otro: otro
-              ? `<span class="check" title="${otroTxt || ''}">✓${otroTxt ? ' (' + otroTxt + ')' : ''}</span>`
-              : '<span class="dash">—</span>'
+            restr: restrText
           };
 
-          if (trash.includes(rawId)) {
-            listTrash.push(item);
-            return;
-          }
-
-          if (viene) { listYes.push(item); } else if (asist.trim()) { listNo.push(item); }
-
-          if (veg)  cVeg++;
-          if (vgn)  cVgn++;
-          if (cel)  cCel++;
-          if (dia)  cDia++;
-          if (otro) cOtro++;
+          if (category === 'trash') listTrash.push(item);
+          else if (category === 'yes') listYes.push(item);
+          else listNo.push(item);
         });
 
         renderSection('tbody-yes',   listYes,   'yes');
@@ -454,15 +456,9 @@
         document.getElementById('cnt-trash-title').textContent = listTrash.length;
 
         document.getElementById('s-total').textContent = listYes.length + listNo.length;
-        document.getElementById('s-yes').textContent    = listYes.length;
-        document.getElementById('s-no').textContent     = listNo.length;
-        document.getElementById('s-trash').textContent  = listTrash.length;
-
-        document.getElementById('cnt-veg').textContent  = cVeg;
-        document.getElementById('cnt-vgn').textContent  = cVgn;
-        document.getElementById('cnt-cel').textContent  = cCel;
-        document.getElementById('cnt-dia').textContent  = cDia;
-        document.getElementById('cnt-otro').textContent = cOtro;
+        document.getElementById('s-yes').textContent   = listYes.length;
+        document.getElementById('s-no').textContent    = listNo.length;
+        document.getElementById('s-trash').textContent = listTrash.length;
 
         document.getElementById('loading').style.display = 'none';
         document.getElementById('content').style.display = 'block';
