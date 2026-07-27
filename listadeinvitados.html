@@ -73,8 +73,8 @@
     /* stats */
     .stats {
       background: var(--cream); padding: 1.75rem 2rem 2rem;
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem;
-      max-width: 640px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem;
+      max-width: 760px; margin: 0 auto;
     }
     .stat { background: var(--cream-dark); border: 0.5px solid rgba(139,80,98,0.15); padding: 1.1rem 0.75rem; text-align: center; }
     .stat-n { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--navy); line-height: 1; }
@@ -84,18 +84,35 @@
     .tbl-section { background: var(--cream); padding: 2rem 1.5rem 3rem; }
 
     .tbl-toolbar {
-      max-width: 900px; margin: 0 auto 1.25rem;
+      max-width: 900px; margin: 0 auto 1.75rem;
       display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;
     }
     .tbl-label { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--mauve); }
-    .btn-refresh {
+    .toolbar-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .btn-refresh, .btn-print {
       padding: 0.55rem 1.25rem; border: 0.5px solid var(--rose); background: transparent;
       color: var(--mauve); font-family: 'Raleway', sans-serif; font-size: 0.68rem;
       letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer; transition: background 0.2s;
     }
     .btn-refresh:hover { background: #F5E2E8; }
+    .btn-print { border-color: var(--navy); color: var(--navy); }
+    .btn-print:hover { background: var(--cream-dark); }
 
-    .tbl-wrap { max-width: 900px; margin: 0 auto; overflow-x: auto; }
+    /* section blocks */
+    .section-block { max-width: 900px; margin: 0 auto 2.75rem; }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1.4rem; color: var(--navy);
+      display: flex; align-items: baseline; justify-content: space-between;
+      border-bottom: 1px solid rgba(139,80,98,0.25); padding-bottom: 0.6rem; margin-bottom: 0.9rem;
+    }
+    .section-title .count {
+      font-family: 'Raleway', sans-serif; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--mauve); opacity: 0.75;
+    }
+    .section-block.trash-block { opacity: 0.85; }
+    .section-block.trash-block .section-title { color: var(--mauve); }
+
+    .tbl-wrap { overflow-x: auto; }
 
     table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
     thead tr { border-bottom: 1px solid var(--navy); }
@@ -116,12 +133,36 @@
     .check { color: var(--mauve); font-size: 1rem; }
     .dash  { color: #ccc; font-size: 0.8rem; }
 
+    .actions-cell { white-space: nowrap; }
+    .btn-mini {
+      border: 0.5px solid var(--rose); background: transparent; color: var(--mauve);
+      font-family: 'Raleway', sans-serif; font-size: 0.62rem; letter-spacing: 0.05em;
+      padding: 4px 9px; cursor: pointer; margin: 2px; transition: background 0.2s;
+    }
+    .btn-mini:hover { background: #F5E2E8; }
+    .btn-mini.danger { border-color: #a94442; color: #a94442; }
+    .btn-mini.danger:hover { background: #fbe6e6; }
+
+    .empty-row td { text-align: center; padding: 1.5rem; color: var(--mauve); opacity: 0.5; font-size: 0.8rem; }
+
     .loading { text-align: center; padding: 3rem; color: var(--navy-mid); font-size: 0.85rem; }
-    .updated { text-align: center; font-size: 0.68rem; color: var(--mauve); opacity: 0.45; margin-top: 1.5rem; letter-spacing: 0.1em; }
+    .updated { text-align: center; font-size: 0.68rem; color: var(--mauve); opacity: 0.45; margin-top: 1rem; letter-spacing: 0.1em; }
 
     @media (max-width: 500px) {
-      .stats { grid-template-columns: repeat(3,1fr); gap: 0.5rem; }
+      .stats { grid-template-columns: repeat(2,1fr); gap: 0.5rem; }
       th, td { padding: 0.6rem 0.4rem; font-size: 0.78rem; }
+    }
+
+    /* ── PRINT: only "Confirman" section ── */
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #fff; }
+      .top-bar { padding: 0.5rem 0 1rem; border-bottom: 1px solid #000; }
+      .tbl-section { padding: 0.5rem 0; }
+      .section-block { margin-bottom: 1rem; }
+      table { font-size: 0.78rem; }
+      th, td { padding: 0.4rem 0.3rem; }
+      tr:hover td { background: none; }
     }
   </style>
 </head>
@@ -146,42 +187,105 @@
     <p>lista de invitados</p>
   </div>
 
-  <div class="stats">
+  <div class="stats no-print">
     <div class="stat"><div class="stat-n" id="s-total">—</div><div class="stat-l">Respuestas</div></div>
     <div class="stat"><div class="stat-n" id="s-yes">—</div><div class="stat-l">Confirman</div></div>
     <div class="stat"><div class="stat-n" id="s-no">—</div><div class="stat-l">No pueden</div></div>
+    <div class="stat"><div class="stat-n" id="s-trash">—</div><div class="stat-l">Papelera</div></div>
   </div>
 
   <div class="tbl-section">
-    <div class="tbl-toolbar">
+    <div class="tbl-toolbar no-print">
       <span class="tbl-label">Respuestas del formulario</span>
-      <button class="btn-refresh" onclick="load()">↻ Actualizar</button>
+      <div class="toolbar-actions">
+        <button class="btn-refresh" onclick="load()">↻ Actualizar</button>
+        <button class="btn-print" onclick="window.print()">🖨 Imprimir PDF</button>
+      </div>
     </div>
-    <div class="tbl-wrap">
-      <div class="loading" id="loading">Cargando...</div>
-      <table id="tbl" style="display:none;">
-        <thead>
-          <tr>
-            <th class="left">#</th>
-            <th class="left">Nombre</th>
-            <th>Asistencia</th>
-            <th>Vegetariano/a<br><span id="cnt-veg" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
-            <th>Vegano/a<br><span id="cnt-vgn" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
-            <th>Celíaco/a<br><span id="cnt-cel" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
-            <th>Diabético/a<br><span id="cnt-dia" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
-            <th>Otro<br><span id="cnt-otro" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
-          </tr>
-        </thead>
-        <tbody id="tbody"></tbody>
-      </table>
+
+    <div class="loading" id="loading">Cargando...</div>
+
+    <div id="content" style="display:none;">
+
+      <!-- CONFIRMADOS -->
+      <div class="section-block" id="section-yes">
+        <div class="section-title">Confirman <span class="count" id="cnt-yes-title">0</span></div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th class="left">#</th>
+                <th class="left">Nombre</th>
+                <th>Asistencia</th>
+                <th>Vegetariano/a<br><span id="cnt-veg" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
+                <th>Vegano/a<br><span id="cnt-vgn" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
+                <th>Celíaco/a<br><span id="cnt-cel" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
+                <th>Diabético/a<br><span id="cnt-dia" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
+                <th>Otro<br><span id="cnt-otro" style="font-size:1.1rem;font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:0;color:var(--navy);opacity:0.7;">—</span></th>
+                <th class="no-print">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-yes"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- NO PUEDEN -->
+      <div class="section-block no-print" id="section-no">
+        <div class="section-title">No pueden venir <span class="count" id="cnt-no-title">0</span></div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th class="left">#</th>
+                <th class="left">Nombre</th>
+                <th>Asistencia</th>
+                <th>Vegetariano/a</th>
+                <th>Vegano/a</th>
+                <th>Celíaco/a</th>
+                <th>Diabético/a</th>
+                <th>Otro</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-no"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PAPELERA -->
+      <div class="section-block trash-block no-print" id="section-trash">
+        <div class="section-title">Papelera <span class="count" id="cnt-trash-title">0</span></div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th class="left">#</th>
+                <th class="left">Nombre</th>
+                <th>Asistencia</th>
+                <th>Vegetariano/a</th>
+                <th>Vegano/a</th>
+                <th>Celíaco/a</th>
+                <th>Diabético/a</th>
+                <th>Otro</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-trash"></tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
-    <p class="updated" id="updated"></p>
+    <p class="updated no-print" id="updated"></p>
   </div>
 </div>
 
 <script>
   const CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ5yynYJis0S-ea7jcqMvpw744WY6qvu5R9rtKykrlhDORJHAfhivCS6HtBHNEWUkDpRLLkt22brA5o/pub?output=csv';
   const PWD = 'casorio';
+  const TRASH_KEY   = 'll_trash';
+  const DELETED_KEY = 'll_deleted';
 
   function check() {
     if (document.getElementById('pwd').value.trim().toLowerCase() === PWD) {
@@ -219,9 +323,55 @@
     return str.toLowerCase().includes(keyword.toLowerCase());
   }
 
+  // ── papelera / eliminados (persisten en este navegador) ──
+  function getTrash()   { try { return JSON.parse(localStorage.getItem(TRASH_KEY)   || '[]'); } catch(e) { return []; } }
+  function setTrash(a)  { localStorage.setItem(TRASH_KEY, JSON.stringify(a)); }
+  function getDeleted() { try { return JSON.parse(localStorage.getItem(DELETED_KEY) || '[]'); } catch(e) { return []; } }
+  function setDeleted(a){ localStorage.setItem(DELETED_KEY, JSON.stringify(a)); }
+
+  function moveToTrash(id) {
+    const t = getTrash();
+    if (!t.includes(id)) { t.push(id); setTrash(t); }
+    load();
+  }
+  function restoreFromTrash(id) {
+    setTrash(getTrash().filter(x => x !== id));
+    load();
+  }
+  function deleteForever(id) {
+    if (!confirm('¿Eliminar esta respuesta definitivamente? No se puede deshacer.')) return;
+    setTrash(getTrash().filter(x => x !== id));
+    const d = getDeleted();
+    if (!d.includes(id)) { d.push(id); setDeleted(d); }
+    load();
+  }
+
+  function renderSection(tbodyId, list, kind) {
+    const tbody = document.getElementById(tbodyId);
+    if (list.length === 0) {
+      tbody.innerHTML = `<tr class="empty-row"><td colspan="9">Sin respuestas en esta sección.</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = list.map((item, idx) => {
+      const actions = kind === 'trash'
+        ? `<button class="btn-mini" onclick="restoreFromTrash('${item.idAttr}')">↩ Restaurar</button>
+           <button class="btn-mini danger" onclick="deleteForever('${item.idAttr}')">✕ Eliminar</button>`
+        : `<button class="btn-mini" onclick="moveToTrash('${item.idAttr}')">🗑 Papelera</button>`;
+      return `
+        <tr>
+          <td class="left" style="color:var(--mauve);opacity:0.45;font-size:0.75rem;">${idx + 1}</td>
+          <td class="left" style="font-weight:500;">${item.nombre}</td>
+          <td>${item.badge}</td>
+          <td>${item.veg}</td><td>${item.vgn}</td><td>${item.cel}</td><td>${item.dia}</td><td>${item.otro}</td>
+          <td class="actions-cell no-print">${actions}</td>
+        </tr>`;
+    }).join('');
+  }
+
   function load() {
     document.getElementById('loading').style.display = 'block';
-    document.getElementById('tbl').style.display = 'none';
+    document.getElementById('loading').textContent = 'Cargando...';
+    document.getElementById('content').style.display = 'none';
 
     fetch(CSV + '&t=' + Date.now())
       .then(r => r.text())
@@ -235,75 +385,79 @@
         const headers = rows[0];
         const data    = rows.slice(1);
 
-        // map columns by header content
-        const iNombre  = colIdx(headers, 'llamás') !== -1 ? colIdx(headers, 'llamás') : 1;
-        const iViene   = colIdx(headers, 'venís')  !== -1 ? colIdx(headers, 'venís')  : 2;
-        const iRestr   = colIdx(headers, 'restricc') !== -1 ? colIdx(headers, 'restricc') : 3;
-        const iOtroTxt = colIdx(headers, 'pusiste') !== -1 ? colIdx(headers, 'pusiste') : 4;
+        const iNombre  = colIdx(headers, 'llamás')    !== -1 ? colIdx(headers, 'llamás')    : 1;
+        const iViene   = colIdx(headers, 'venís')     !== -1 ? colIdx(headers, 'venís')     : 2;
+        const iRestr   = colIdx(headers, 'restricc')  !== -1 ? colIdx(headers, 'restricc')  : 3;
+        const iOtroTxt = colIdx(headers, 'pusiste')   !== -1 ? colIdx(headers, 'pusiste')   : 4;
 
-        let cYes = 0, cNo = 0, cVeg = 0, cVgn = 0, cCel = 0, cDia = 0, cOtro = 0;
-        const rowsYes = [], rowsNo = [];
-        const tbody = document.getElementById('tbody');
-        tbody.innerHTML = '';
+        const trash   = getTrash();
+        const deleted = getDeleted();
+
+        let cVeg = 0, cVgn = 0, cCel = 0, cDia = 0, cOtro = 0;
+        const listYes = [], listNo = [], listTrash = [];
 
         data.forEach((row, i) => {
+          // id única por respuesta = timestamp de la fila (columna 0 del form)
+          const rawId = (row[0] && row[0].trim()) ? row[0].trim() : ('row-' + i);
+          if (deleted.includes(rawId)) return;
+
           const nombre  = row[iNombre]  || '—';
           const asist   = row[iViene]   || '';
           const restr   = row[iRestr]   || '';
           const otroTxt = row[iOtroTxt] || '';
+          if (!asist.trim() && (!nombre || nombre === '—')) return;
 
           const noViene = has(asist, 'no voy') || has(asist, 'no puedo') || has(asist, 'no poder') || (asist.trim().toLowerCase().startsWith('no'));
           const viene   = !noViene && asist.trim() !== '';
 
-          if (viene) cYes++; else if (asist.trim()) cNo++;
+          const veg  = has(restr, 'vegetar');
+          const vgn  = has(restr, 'vegano');
+          const cel  = has(restr, 'celí') || has(restr, 'celia');
+          const dia  = has(restr, 'diabé') || has(restr, 'diabe');
+          const otro = has(restr, 'otro') || !!otroTxt;
 
-          const badge = viene
-            ? '<span class="badge badge-yes">Confirma ✓</span>'
-            : '<span class="badge badge-no">No puede</span>';
+          const item = {
+            idAttr: rawId.replace(/'/g, "\\'"),
+            nombre,
+            badge: viene
+              ? '<span class="badge badge-yes">Confirma ✓</span>'
+              : '<span class="badge badge-no">No puede</span>',
+            veg:  veg  ? '<span class="check">✓</span>' : '<span class="dash">—</span>',
+            vgn:  vgn  ? '<span class="check">✓</span>' : '<span class="dash">—</span>',
+            cel:  cel  ? '<span class="check">✓</span>' : '<span class="dash">—</span>',
+            dia:  dia  ? '<span class="check">✓</span>' : '<span class="dash">—</span>',
+            otro: otro
+              ? `<span class="check" title="${otroTxt || ''}">✓${otroTxt ? ' (' + otroTxt + ')' : ''}</span>`
+              : '<span class="dash">—</span>'
+          };
 
-          const veg  = has(restr, 'vegetar') ? (cVeg++, '<span class="check">✓</span>') : '<span class="dash">—</span>';
-          const vgn  = has(restr, 'vegano')  ? (cVgn++, '<span class="check">✓</span>') : '<span class="dash">—</span>';
-          const cel  = has(restr, 'celí') || has(restr, 'celia') ? (cCel++, '<span class="check">✓</span>') : '<span class="dash">—</span>';
-          const dia  = has(restr, 'diabé') || has(restr, 'diabe') ? (cDia++, '<span class="check">✓</span>') : '<span class="dash">—</span>';
-          const otro = has(restr, 'otro') || otroTxt
-            ? (cOtro++, `<span class="check" title="${otroTxt || ''}">✓${otroTxt ? ' (' + otroTxt + ')' : ''}</span>`)
-            : '<span class="dash">—</span>';
+          if (trash.includes(rawId)) {
+            listTrash.push(item);
+            return;
+          }
 
-          const rowHtml = `
-            <tr data-viene="${viene}">
-              <td class="left" style="color:var(--mauve);opacity:0.45;font-size:0.75rem;">${i+1}</td>
-              <td class="left" style="font-weight:500;">${nombre}</td>
-              <td>${badge}</td>
-              <td>${veg}</td><td>${vgn}</td><td>${cel}</td><td>${dia}</td><td>${otro}</td>
-            </tr>`;
+          if (viene) { listYes.push(item); } else if (asist.trim()) { listNo.push(item); }
 
-          if (viene) rowsYes.push(rowHtml); else rowsNo.push(rowHtml);
+          if (veg)  cVeg++;
+          if (vgn)  cVgn++;
+          if (cel)  cCel++;
+          if (dia)  cDia++;
+          if (otro) cOtro++;
         });
 
-        // group separator row
-        const separator = (label, count) => `
-          <tr>
-            <td colspan="8" style="
-              padding: 1rem 0.75rem 0.5rem;
-              font-size: 0.65rem;
-              letter-spacing: 0.3em;
-              text-transform: uppercase;
-              color: var(--mauve);
-              font-weight: 500;
-              border-bottom: 1px solid var(--navy);
-              background: var(--cream);
-            ">${label} &nbsp;<span style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:300;letter-spacing:0;">${count}</span></td>
-          </tr>`;
+        renderSection('tbody-yes',   listYes,   'yes');
+        renderSection('tbody-no',    listNo,    'no');
+        renderSection('tbody-trash', listTrash, 'trash');
 
-        tbody.innerHTML =
-          separator('Confirman', cYes) +
-          rowsYes.join('') +
-          separator('No pueden', cNo) +
-          rowsNo.join('');
+        document.getElementById('cnt-yes-title').textContent   = listYes.length;
+        document.getElementById('cnt-no-title').textContent    = listNo.length;
+        document.getElementById('cnt-trash-title').textContent = listTrash.length;
 
-        document.getElementById('s-total').textContent = data.length;
-        document.getElementById('s-yes').textContent   = cYes;
-        document.getElementById('s-no').textContent    = cNo;
+        document.getElementById('s-total').textContent = listYes.length + listNo.length;
+        document.getElementById('s-yes').textContent    = listYes.length;
+        document.getElementById('s-no').textContent     = listNo.length;
+        document.getElementById('s-trash').textContent  = listTrash.length;
+
         document.getElementById('cnt-veg').textContent  = cVeg;
         document.getElementById('cnt-vgn').textContent  = cVgn;
         document.getElementById('cnt-cel').textContent  = cCel;
@@ -311,7 +465,7 @@
         document.getElementById('cnt-otro').textContent = cOtro;
 
         document.getElementById('loading').style.display = 'none';
-        document.getElementById('tbl').style.display     = 'table';
+        document.getElementById('content').style.display = 'block';
 
         const now = new Date();
         document.getElementById('updated').textContent =
