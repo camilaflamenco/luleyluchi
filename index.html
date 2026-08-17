@@ -445,13 +445,13 @@
     <h2>La música de la noche</h2>
     <p>¿Qué tema tiene que sonar sí o sí en la pista?<br>Agregalo directamente a la playlist.</p>
     <div class="spotify-wrap">
-      <iframe src="https://open.spotify.com/playlist/1AAxgQaELMXT19NC5X5uYU?si=512644377fba4864&pt=70acfd19d7c46ca85c22361db7677b9e"
+      <iframe src="https://open.spotify.com/embed/playlist/1AAxgQaELMXT19NC5X5uYU?utm_source=generator"
         width="100%" height="500" frameBorder="0"
         allowfullscreen=""
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         loading="lazy" style="display:block;"></iframe>
     </div>
-    <a href="https://open.spotify.com/playlist/1AAxgQaELMXT19NC5X5uYU?si=512644377fba4864&pt=70acfd19d7c46ca85c22361db7677b9e"
+    <a href="https://open.spotify.com/playlist/1AAxgQaELMXT19NC5X5uYU"
        target="_blank" class="btn-ghost-light">Agregá tu canción →</a>
   </div>
 </div>
@@ -460,7 +460,7 @@
 <div class="section-wrap dark" style="padding: 5rem 2rem;">
   <div class="section-inner">
     <p style="font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,6vw,3rem); font-weight:300; font-style:italic; color:var(--cream); line-height:1.3;">
-      ¡Te esperamos!
+      Te esperamos.
     </p>
     <div style="width:40px; height:0.5px; background:var(--blush); opacity:0.4; margin:1.75rem auto;"></div>
     <p style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.6rem,4vw,2.2rem); font-weight:300; color:var(--cream);">
@@ -485,7 +485,7 @@
     const alias = 'lyl3238';
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(alias).then(() => {
-        btn.textContent = 'Copiado';
+        btn.textContent = '¡Copiado!';
         setTimeout(() => btn.textContent = 'Copiar', 2500);
       }).catch(() => fallbackCopy(alias, btn));
     } else {
