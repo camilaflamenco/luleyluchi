@@ -485,7 +485,7 @@
     const alias = 'lyl3238';
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(alias).then(() => {
-        btn.textContent = '¡Copiado!';
+        btn.textContent = 'Copiado';
         setTimeout(() => btn.textContent = 'Copiar', 2500);
       }).catch(() => fallbackCopy(alias, btn));
     } else {
