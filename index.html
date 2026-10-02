@@ -148,11 +148,19 @@
     .hero .names {
       font-family: 'Great Vibes', cursive;
       font-weight: 400;
-      font-size: clamp(3.6rem, 15vw, 7.5rem);
-      line-height: 1.1;
+      font-size: clamp(3.3rem, 14vw, 7.5rem);
+      line-height: 1.25;
+      padding: 0.1em 0.2em;
       color: var(--gold);
     }
-    .hero .names .amp { font-style: normal; color: var(--gold); opacity: 0.85; }
+    .hero .names .amp {
+      font-style: normal;
+      color: #B99A6E;            /* dorado un poco más suave, sin usar opacity (Safari recorta el glifo) */
+      display: inline-block;
+      padding: 0.12em 0.18em;    /* aire para los trazos de la caligráfica */
+      margin: -0.12em -0.04em;
+      overflow: visible;
+    }
     .star-line {
       display: flex; align-items: center; gap: 0.8rem;
       width: min(360px, 78vw); margin: 1.4rem auto 1.8rem;
